@@ -11,7 +11,7 @@ export var serverConfig = {
     babel(babelrc()), nodeResolve()
   ],
   external: external,
-  dest: 'dist/server.js',
+  dest: 'server.js',
   cache: undefined,
   format: 'cjs'
 };
@@ -22,6 +22,6 @@ export var clientConfig = {
     babel(babelrc()), nodeResolve()
   ],
   external: external,
-  dest: 'dist/client.js',
+  dest: 'public/client.js',
   cache: undefined,
 };
