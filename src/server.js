@@ -1,6 +1,7 @@
 var express     = require('express');
 var compression = require('compression');
 var session     = require('express-session');
+var bodyParser     = require('body-parser');
 
 import viewEngine from './server/view-engine'
 
@@ -14,6 +15,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+})); 
 
 app.set('view engine', 'html');
 app.engine('html', viewEngine);
