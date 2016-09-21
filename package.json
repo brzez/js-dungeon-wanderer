@@ -26,6 +26,7 @@
     "rollup": "^0.34.7",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0",
     "view-engine": "file:../view-engine"
   }

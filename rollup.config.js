@@ -1,6 +1,8 @@
 import babel from 'rollup-plugin-babel';
 import babelrc from 'babelrc-rollup';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import uglify from 'rollup-plugin-uglify';
+
 
 let pkg = require('./package.json');
 let external = Object.keys(pkg.dependencies);
@@ -19,7 +21,7 @@ export var serverConfig = {
 export var clientConfig = {
   entry: 'src/client.js',
   plugins: [
-    babel(babelrc()), nodeResolve()
+    babel(babelrc()), nodeResolve(), uglify()
   ],
   external: external,
   dest: 'public/client.js',
