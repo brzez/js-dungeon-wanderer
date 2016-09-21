@@ -3,17 +3,22 @@ import compression from 'compression'
 
 import viewEngine from './server/view-engine'
 
+import Game from './server/game'
+
 var app = express();
-
-app.set('view engine', 'html');
-
-app.get('/', function(req, res) {
-    res.render('index', {test: 'xoxo'})
-});
 
 app.use(compression())
 
-viewEngine(app);
+app.set('view engine', 'html');
+app.engine('html', viewEngine);
+
+var game = new Game(app);
+
+app.get('/', function(req, res) {
+    game.renderView().then(function(game_view) {
+        res.render('index', {game_view})
+    })
+});
 
 app.use(express.static(__dirname + '/public'))
 
