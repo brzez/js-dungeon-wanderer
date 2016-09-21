@@ -1,5 +1,6 @@
-import express from 'express'
-import compression from 'compression'
+var express     = require('express');
+var compression = require('compression');
+var session     = require('express-session');
 
 import viewEngine from './server/view-engine'
 
@@ -8,6 +9,11 @@ import Game from './server/game'
 var app = express();
 
 app.use(compression())
+app.use(session({
+    secret: 'potato tomato',
+    resave: false,
+    saveUninitialized: false,
+}));
 
 app.set('view engine', 'html');
 app.engine('html', viewEngine);
