@@ -4,6 +4,7 @@
     "prebuild": "eslint lib test",
     "build": "gulp build",
     "watch": "gulp watch",
+    "dev": "gulp dev",
     "pretest": "npm run build",
     "test": "mocha",
     "prepublish": "npm test"
@@ -23,6 +24,7 @@
     "babelrc-rollup": "^3.0.0",
     "eslint": "^3.2.2",
     "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.1.0",
     "mocha": "^3.0.2",
     "rollup": "^0.34.7",
     "rollup-plugin-babel": "^2.6.1",
