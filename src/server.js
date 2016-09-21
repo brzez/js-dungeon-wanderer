@@ -5,7 +5,7 @@ var bodyParser     = require('body-parser');
 
 import viewEngine from './server/view-engine'
 
-import Game from './server/game'
+import game from './server/game'
 
 var app = express();
 
@@ -17,20 +17,15 @@ app.use(session({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 })); 
+app.use(express.static(__dirname + '/public'))
 
 app.set('view engine', 'html');
 app.engine('html', viewEngine);
 
-var game = new Game(app);
 
-app.get('/', function(req, res) {
-    game.renderView().then(function(game_view) {
-        res.render('index', {game_view})
-    })
-});
+app.use(game());
 
-app.use(express.static(__dirname + '/public'))
 
 app.listen(3000);
