@@ -1,5 +1,7 @@
 var express = require('express');
 
+import Game from './game'
+
 /*
   Will load the game from the session
   Will store user game state in the session
@@ -15,16 +17,39 @@ var express = require('express');
  */
 
 export default function(options){
+    let resolveState = (req) => {
+        let state = req.session.state;
+        if(!state){
+            state = req.session.state = {};
+        }
+        return state;
+    }
     
-    var gameMiddleware = function(req, res, next) {
-        var router = express.Router();
+    let gameMiddleware = function(req, res, next) {
+        let app    = req.app;
+        let router = express.Router();
+
+        let state = resolveState(req);
+
+        let game = new Game(state);
+
+        let renderResponse = function() {
+            let view = game.getView();
+            if(req.xhr){
+                return res.send(view.toJson());
+            }
+            app.render(view.template, view.data, function(err, game_view) {
+                res.render('index', {game_view})
+            });
+        };
 
         router.get('/', function(req, res) {
-            res.send('get /');
+            renderResponse();
         });
 
         router.post('/', function(req, res) {
-            res.send('post / data: ' + JSON.stringify(req.body));
+            game.processInput(req.body);
+            renderResponse();
         });
 
         return router(req, res, next);
