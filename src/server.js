@@ -3,7 +3,7 @@ var compression = require('compression');
 var session     = require('express-session');
 var bodyParser     = require('body-parser');
 
-import viewEngine from './server/view-engine'
+import viewEngine from './server/view/viewEngine'
 
 import game from './server/game'
 

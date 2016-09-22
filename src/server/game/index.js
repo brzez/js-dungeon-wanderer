@@ -1,6 +1,8 @@
 var express = require('express');
+var fs      = require('fs');
 
 import Game from './game'
+import getViewPath from '../view/getViewPath'
 
 /*
   Will load the game from the session
@@ -51,6 +53,16 @@ export default function(options){
             game.processInput(req.body);
             renderResponse();
         });
+
+        router.get('/template', function(req, res) {
+            var viewPath = getViewPath(app, req.query.name);
+            fs.readFile(viewPath, function(err, result) {
+                if(err){
+                    return res.end();
+                }
+                res.send(result);
+            });
+        })
 
         return router(req, res, next);
     }
