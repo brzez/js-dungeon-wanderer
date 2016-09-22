@@ -18,6 +18,13 @@ import Layers from './layers'
 
 var Game = function(state) {
     this.state = state;
+    if(!state.stage){
+        this.initStage(state);
+    }
+};
+
+Game.prototype.initStage = function(state) {
+    state.stage = 'pick_a_name';
 };
 
 Game.prototype.processInput = function(input) {
