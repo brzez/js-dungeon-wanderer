@@ -4,13 +4,6 @@ import layers from './client/layers'
 import {serializeForm} from './client/form'
 
 
-// request('get', '/', function(state, xhr) {
-//     layers(state, function() {
-//         console.log.apply(console, arguments)
-//     })
-// });
-
-
 // hijack all forms
 document.querySelectorAll('form').forEach(function(form) {
     var buttons = form.querySelectorAll('button');
@@ -28,7 +21,7 @@ document.querySelectorAll('form').forEach(function(form) {
         e.preventDefault();
         request('post', '/', function(gameState) {
             layers(gameState, function() {
-                console.log.apply(console, arguments)
+                console.log(arguments)
             })
         }, {data: serializeForm(this)})
     }

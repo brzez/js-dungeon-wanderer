@@ -7,16 +7,18 @@ import view from './view'
 export default function(layers, cb) {
     var pending = 0;
     var rendered = {};
-    for(var k in layers){
+    for(let name in layers){
         pending++;
-        view(layers[k], (function(name) {
+    }
+    for(let name in layers){
+        view(layers[name], (function(name) {
             return function(result) {
                 pending--;
                 rendered[name] = result;
-                if(!pending){
+                if(pending == 0){
                     cb(rendered);
                 }
             }
-        })(k))
+        })(name))
     }
 }
