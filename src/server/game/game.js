@@ -1,4 +1,5 @@
 import View from './view'
+import Layers from './layers'
 /*
   # game state empty
   - create character:
@@ -25,10 +26,13 @@ Game.prototype.processInput = function(input) {
 
 /**
  * Get current game state
- * @return {View}
+ * @return {object} map[] name => View
  */
-Game.prototype.getView = function() {
-    return new View('some_view', {banana: 123});
+Game.prototype.getLayers = function() {
+    return new Layers({
+        view_layer: new View('game_view', {}),
+        ui_layer:   new View('ui_view', {})
+    });
 };
 
 export default Game;

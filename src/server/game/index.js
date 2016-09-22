@@ -36,12 +36,14 @@ export default function(options){
         let game = new Game(state);
 
         let renderResponse = function() {
-            let view = game.getView();
+            let layers = game.getLayers();
             if(req.xhr){
-                return res.send(view.toJson());
+                return res.send(layers.toJson());
             }
-            app.render(view.template, view.data, function(err, game_view) {
-                res.render('index', {game_view})
+
+            // render all layers
+            layers.render(app).then(function(result) {
+                res.render('index', result);
             });
         };
 
