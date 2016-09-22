@@ -20,8 +20,10 @@ document.querySelectorAll('form').forEach(function(form) {
         console.log('form#onsubmit')
         e.preventDefault();
         request('post', '/', function(gameState) {
-            layers(gameState, function() {
-                console.log(arguments)
+            layers(gameState, function(rendered) {
+                for(var id in rendered){
+                    document.getElementById(id).innerHTML = rendered[id];
+                }
             })
         }, {data: serializeForm(this)})
     }
