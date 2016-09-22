@@ -11,14 +11,16 @@ Layers.prototype.render = function(app) {
     var promises = [];
     for(let name in this.all){
         let layer = this.all[name];
-        let promise = new Promise(function(resolve, reject) {
-            app.render(layer.template, layer.data, function(err, result) {
-                if(err){
-                    return reject(err);
-                }
-                resolve({name: name, rendered: result})
-            });
-        });
+        let promise = new Promise((function(name) {
+            return function(resolve, reject) {
+                app.render(layer.template, layer.data, function(err, result) {
+                    if(err){
+                        return reject(err);
+                    }
+                    resolve({name: name, rendered: result})
+                });
+            }
+        })(name));
         promises.push(promise);
     }
 

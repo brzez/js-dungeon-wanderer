@@ -1,9 +1,9 @@
 import request from './client/request'
-import view from './client/view'
+import layers from './client/layers'
 
 
-request('get', '/', function(v, xhr) {
-    view(v, function() {
+request('get', '/', function(state, xhr) {
+    layers(state, function() {
         console.log.apply(console, arguments)
     })
 });
