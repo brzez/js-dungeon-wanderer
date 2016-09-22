@@ -2,3 +2,4 @@ todo.html
 node_modules/
 /server.js
 /public/client.js
+/public/index.css
