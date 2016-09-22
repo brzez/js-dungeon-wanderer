@@ -1,5 +1,10 @@
 import View from './view'
 import Layers from './layers'
+import StageFactory from './stage/factory'
+
+import register_stages from './register_stages'
+
+
 /*
   # game state empty
   - create character:
@@ -18,18 +23,39 @@ import Layers from './layers'
 
 var Game = function(state) {
     this.state = state;
-    if(!state.stage){
-        this.initStage(state);
-    }
+    this.stageFactory = register_stages(new StageFactory(this));
+
+    this.init(state);
 };
 
-Game.prototype.initStage = function(state) {
-    state.stage = 'pick_a_name';
+Game.prototype.getStage = function() {
+    let stage = this.state.stage;
+    if(!stage){
+        return null;
+    }
+    return this.stageFactory.create(stage.name, stage.data);
+};
+
+Game.prototype.setStage = function(name) {
+    var stage = this.stageFactory.create(name, {});
+    this.state.stage = {
+        name: name,
+        data: stage.serialize()
+    }
+    return stage;
+};
+
+Game.prototype.init = function(state) {
+    // initial stage
+    if(this.getStage() === null){
+        this.setStage('create_a_character');
+    }
 };
 
 Game.prototype.processInput = function(input) {
     console.log('Processing input', input);
-    this.state.test = input.test;
+    var stage = this.getStage();
+    stage.processInput(input);
 };
 
 /**
@@ -37,10 +63,7 @@ Game.prototype.processInput = function(input) {
  * @return {object} map[] name => View
  */
 Game.prototype.getLayers = function() {
-    return new Layers({
-        view_layer: new View('game_view', {test: this.state.test}),
-        ui_layer:   new View('ui_view', {})
-    });
+    return this.getStage().getLayers();
 };
 
 export default Game;
