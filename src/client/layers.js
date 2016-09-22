@@ -4,7 +4,7 @@ import view from './view'
 /**
  * renders multiple layers
  */
-export default function(layers, cb) {
+function layers(layers, cb) {
     var pending = 0;
     var rendered = {};
     for(let name in layers){
@@ -21,4 +21,13 @@ export default function(layers, cb) {
             }
         })(name))
     }
+}
+
+export default function(gameState, cb){
+    layers(gameState, function(rendered) {
+        for(var id in rendered){
+            document.getElementById(id).innerHTML = rendered[id];
+        }
+        if(cb) cb();
+    })
 }
