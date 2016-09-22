@@ -22,6 +22,7 @@ var Game = function(state) {
 
 Game.prototype.processInput = function(input) {
     console.log('Processing input', input);
+    this.state.test = input.test;
 };
 
 /**
@@ -30,7 +31,7 @@ Game.prototype.processInput = function(input) {
  */
 Game.prototype.getLayers = function() {
     return new Layers({
-        view_layer: new View('game_view', {}),
+        view_layer: new View('game_view', {test: this.state.test}),
         ui_layer:   new View('ui_view', {})
     });
 };
