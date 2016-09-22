@@ -12,5 +12,5 @@ export default function(name, callback) {
     }
     request('get', `/template?name=${encodeURIComponent(name)}`, function(template) {
         callback(cache[name] = template);
-    }, 'text')
+    }, {responseType: 'text'})
 }
