@@ -15,6 +15,20 @@ describe('getViewPath', () => {
 
         var path = getViewPath(appMock, 'test');
 
-        assert.equal(path, 'views/test.html');
+        assert.match(path, /views\/test.html$/);
+    }); 
+    it('path should always be in views directory', () => {
+        var appMock = {get:function(name) {
+            switch(name){
+                case 'views':
+                    return 'views/'
+                case 'view engine':
+                    return 'html';
+            }
+        }};
+
+        assert.throws(function() {
+            getViewPath(appMock, '../../test')
+        }, Error);
     }); 
 });
