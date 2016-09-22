@@ -55,7 +55,9 @@ export default function(options){
         });
 
         router.get('/template', function(req, res) {
-            var viewPath = getViewPath(app, req.query.name);
+            var name = req.query.name;
+            var viewPath = getViewPath(app, name);
+
             fs.readFile(viewPath, function(err, result) {
                 if(err){
                     return res.end();
