@@ -1,19 +1,22 @@
 {{#! character.name}}
+<h1>Name your character</h1>
 <form method="post">
-    <h1>Name your character</h1>
     <input type="text" name="name">
     <button>Save</button>
 </form>
 {{/}}
 
 {{# character.name}}
-<form method="post">
-{{@ class_templates}}
-<button name="class" value="{{name}}">
-    <div>{{name}}</div>
-    <div>Health: {{hp}}</div>
-    <div>Mana: {{mp}}</div>
-</button>
-{{@}}
-</form>
+    <h1>Choose a class</h1>
+    <form method="post">
+    {{@ class_templates}}
+    <button name="class" value="{{name}}" class="stats_info">
+        <div class="name">{{name}}</div>
+        <div class="rows">
+            <div class="col">Health:</div><div class="col">{{hp}}</div>
+            <div class="col">Mana:</div><div class="col">{{mp}}</div>
+        </div>
+    </button>
+    {{@}}
+    </form>
 {{/}}
