@@ -42,6 +42,7 @@ CreateACharacter.prototype.processInput = function(input) {
 
     if(character.name && character.class){
         console.log('character created -> setStage to something else')
+        this.setStage('room');
     }
 };
 

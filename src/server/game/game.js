@@ -36,8 +36,8 @@ Game.prototype.getStage = function() {
     return this.stageFactory.create(stage.name, stage.data);
 };
 
-Game.prototype.setStage = function(name) {
-    var stage = this.stageFactory.create(name, {});
+Game.prototype.setStage = function(name, data = {}) {
+    var stage = this.stageFactory.create(name, data);
     this.state.stage = {
         name: name,
         data: stage.serialize()
