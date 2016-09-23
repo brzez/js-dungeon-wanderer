@@ -1,1 +1,10 @@
-room view
+{{@ stage_data.walls}}
+<div class="wall">
+    wall type {{type}}
+    {{# door}}
+    <div class="door">
+        door type: {{door.type}}
+    </div>
+    {{/}}
+</div>
+{{@}}

@@ -42,10 +42,19 @@ Game.prototype.setStage = function(name, data = {}) {
         name: name,
         data: stage.serialize()
     }
+    stage.init();
     return stage;
 };
 
 Game.prototype.init = function(state) {
+    /* mocked state, skips creating character */
+    this.state.character = {
+        name: 'aieieo',
+        class: {}
+    }
+    this.setStage('room');
+    /* */
+
     // initial stage
     if(this.getStage() === null){
         this.setStage('create_a_character');
