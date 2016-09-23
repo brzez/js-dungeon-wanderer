@@ -2,19 +2,21 @@ import Stage from '../stage'
 import Layers from '../../layers'
 import View from '../../view'
 
+import class_templates from '../../class_templates'
+
 
 var CreateACharacter = function(game) {
     Stage.apply(this, [game]);
+    if(!this.getState().character){
+        this.getState().character = {};
+    }
 };
 
 CreateACharacter.prototype.__proto__ = Stage.prototype;
 
 CreateACharacter.prototype.getLayers = function() {
-    if(!this.getState().character){
-        this.getState().character = {};
-    }
     var character = this.getState().character;
-    let data = { character };
+    let data = { character, class_templates };
 
     return new Layers({
         view_layer: new View('create_a_character/view', data),
@@ -23,8 +25,23 @@ CreateACharacter.prototype.getLayers = function() {
 };
 
 CreateACharacter.prototype.processInput = function(input) {
+    let character = this.getState().character;
+
     if(input.name){
-        this.getState().character.name = input.name;
+        character.name = input.name;
+    }
+    
+    if(input.class){
+        class_templates.forEach((characterClass)=>{
+            if(characterClass.name !== input.class){ 
+                return;
+            }
+            character.class = characterClass;
+        })   
+    }
+
+    if(character.name && character.class){
+        console.log('character created -> setStage to something else')
     }
 };
 

@@ -8,9 +8,12 @@
 
 {{# character.name}}
 <form method="post">
-    <h1>Choose a class</h1>
-    <button name="class" value="mage">mage</button>
-    <button name="class" value="rogue">rogue</button>
-    <button name="class" value="warrior">warrior</button>
+{{@ class_templates}}
+<button name="class" value="{{name}}">
+    <div>{{name}}</div>
+    <div>Health: {{hp}}</div>
+    <div>Mana: {{mp}}</div>
+</button>
+{{@}}
 </form>
 {{/}}
