@@ -8,22 +8,43 @@ import class_templates from '../../class_templates'
 var Room = function(game) {
     Stage.apply(this, [game]);
 };
+/*
+    view:
+    You are in a *room description* room.
+    You see *3* doors:
+    - a *wooden door*
+    - a *steel door*
+    - a *wooden door*
+    (optional)
+    A *monster name* is blocking your way
+    (optional)
+    You have found a *item name*!
+ */
+/*
+    UI:
+    - Open the *wooden door*
+    - Open the *steel door*
+    - Open the *wooden door*
+    (if monster is present)
+    - Attack the *monster*
+    - Use *skill* [option for reach skill]
+    - Use *item* [option for reach item]
+    - Try to escape [% chance]
+    (if item is present)
+    - pick it up
+ */
 
 Room.prototype.init = function() {
     this.getState().stage.data = {
-        // walls: (array)
-        // each wall describes itself
-        // wall can have a door. doors also need to have a type
-        walls: [
-            {type: 'wall type'},
-            {   
-                type: 'wall type',
-                door: {
-                    type: 'door type'
-                }
-            },
-            {type: 'wall type'}
+        type: 'ugly room',
+        doors: [
+            // empty ob: no door
+            {},
+            {type: 'wooden'},
+            {type: 'golden'},
         ],
+        item: {type: 'banana'},
+        monster: {type: 'potato' /* ... more data */}
     };
 
     console.log(this.getState().stage)

@@ -1,10 +1,13 @@
-{{@ stage_data.walls}}
-<div class="wall">
-    wall type {{type}}
-    {{# door}}
-    <div class="door">
-        door type: {{door.type}}
+<div class="room">
+    room type: {{stage_data.type}}
+    {{@ stage_data.doors}}
+    <div class="wall">
+        wall
+        {{# type}}
+        <div class="door">
+            door type: {{type}}
+        </div>
+        {{/}}
     </div>
-    {{/}}
+    {{@}}
 </div>
-{{@}}
