@@ -6,8 +6,7 @@
     "watch": "gulp watch",
     "dev": "gulp dev",
     "pretest": "npm run build",
-    "test": "mocha",
-    "prepublish": "npm test"
+    "test": "mocha"
   },
   "author": "Pawel Brzezinski",
   "license": "MIT",

@@ -1,0 +1,19 @@
+{{#! character.name}}
+<form method="post">
+    <h1>Name your character</h1>
+    <input type="text" name="name">
+    <button>Save</button>
+</form>
+{{/}}
+
+{{# character.name}}
+<form method="post">
+{{@ class_templates}}
+<button name="class" value="{{name}}">
+    <div>{{name}}</div>
+    <div>Health: {{hp}}</div>
+    <div>Mana: {{mp}}</div>
+</button>
+{{@}}
+</form>
+{{/}}
