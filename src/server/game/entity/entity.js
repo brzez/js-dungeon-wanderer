@@ -20,6 +20,7 @@ Entity.prototype.init = function(data) {
     this.data.hp = normalizeStat(data.hp);
     this.data.mp = normalizeStat(data.mp);
     this.data.items = data.items || [];
+    this.data.skills = data.skills || [];
 };
 
 Entity.prototype.getData = function() {

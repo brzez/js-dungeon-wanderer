@@ -6,11 +6,11 @@ var Wizard = function() {
         type: 'Wizard',
         hp: 10,
         mp: 15,
-        skills: {
-            'attack': function(self, enemy) {
-                console.log('AIEIEIEOE !!')
-            }
-        }
+        skills: [
+            {type: 'attack', skill: function(self, enemy) {
+                console.log('akakeek')
+            }}
+        ]
     });
 }
 Wizard.prototype.__proto__ = Entity.prototype;

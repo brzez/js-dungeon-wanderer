@@ -10,8 +10,12 @@ describe('Entity', () => {
             assert.deepEqual(e.data.mp, {max: 15, current: 15});
         })
         it('data.items should be an array', function() {
-            var e = new Entity({type: 'test', });
+            var e = new Entity({type: 'test'});
             assert.isArray(e.data.items);
+        })
+        it('data.skills should be an array', function() {
+            var e = new Entity({type: 'test'});
+            assert.isArray(e.data.skills);
         })
         it('data.type always needs to be defined', function() {
             assert.throws(function() {
