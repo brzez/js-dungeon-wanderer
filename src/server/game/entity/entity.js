@@ -1,4 +1,5 @@
 import itemRegistry from './item/registry'
+import skillRegistry from './skill/registry'
 
 
 var Entity = function(data) {
@@ -50,6 +51,22 @@ Entity.prototype.useItem = function(type) {
         item.use(this);
 
         items.splice(i, 1);
+
+        return true;
+    }
+    return false;
+};
+
+Entity.prototype.useSkill = function(type, target) {
+    let skills = this.data.skills;
+    console.log('using skill', type);
+    for(let i = 0;i < skills.length; i++){
+        if(skills[i].type != type){
+            continue;
+        }
+
+        let skill = skillRegistry.create(type);
+        skill.use(this, target);
 
         return true;
     }

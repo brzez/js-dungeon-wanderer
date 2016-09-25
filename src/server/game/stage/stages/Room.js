@@ -46,7 +46,7 @@ Room.prototype.init = function() {
             {type: 'golden'},
         ],
         item: {type: 'Health Potion'},
-        monster: null //{type: 'Rat'}
+        monster: {type: 'Rat'}
     };
 };
 

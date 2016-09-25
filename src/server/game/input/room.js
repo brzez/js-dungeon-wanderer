@@ -58,6 +58,10 @@ FightInputProcessor.prototype.getControls = function() {
 };
 
 FightInputProcessor.prototype.processInput = function(input) {
+    if(input.use_skill){
+        let type = input.use_skill;
+        this.getPlayer().useSkill(type, this.getMonster());
+    }
 };
 
 FightInputProcessor.prototype.__proto__ = InputProcessor.prototype;
