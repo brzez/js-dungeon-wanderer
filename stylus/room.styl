@@ -1,0 +1,75 @@
+
+$border_width = 50px
+
+.room
+  height 100%
+  font-size 0
+  padding $border_width 0
+  & .spacer
+    border 1px solid #f0f
+    width (100/3)%
+    height 100%
+    float left
+  & .door
+    border 1px solid #fea
+    width 60%
+    height 100%
+    margin 0 auto  
+  & .wall
+    font-size 20px
+    display inline-block
+    height 100%
+    float left
+    &.front
+      background #321123
+      width 100%
+      @media(min-width: $container_width)
+        width 700px
+    &.left, &.right
+      display none
+      @media(min-width: $container_width)
+        width 100px
+        display inline-block
+    &.left
+      background #ef4f4f
+      
+      position relative
+      &:before
+        content ''
+        display block
+        border $border_width solid transparent
+        border-left 100px solid #ef4f4f
+        border-top none
+        position absolute
+        top 100%
+      &:after
+        content ''
+        display block
+        border $border_width solid transparent
+        border-left 100px solid #ef4f4f
+        border-bottom none
+        position absolute
+        bottom 100%
+    &.right
+      background #ef4f4f
+      
+      position relative
+      &:before
+        content ''
+        display block
+        border $border_width solid transparent
+        border-right 100px solid #ef4f4f
+        border-left 0
+        border-top none
+        position absolute
+        top 100%
+      &:after
+        content ''
+        display block
+        border $border_width solid transparent
+        border-right 100px solid #ef4f4f
+        border-left 0
+        border-bottom none
+        position absolute
+        bottom 100%
+      
