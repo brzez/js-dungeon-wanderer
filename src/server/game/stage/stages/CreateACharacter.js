@@ -2,7 +2,7 @@ import Stage from '../stage'
 import Layers from '../../layers'
 import View from '../../view'
 
-import class_templates from '../../class_templates'
+import {Wizard, Rogue, Paladin} from '../../entity/entities'
 
 
 var CreateACharacter = function(game) {
@@ -15,9 +15,23 @@ var CreateACharacter = function(game) {
 
 CreateACharacter.prototype.__proto__ = Stage.prototype;
 
+CreateACharacter.prototype.getClassTemplates = function() {
+    var templates = [];
+
+    [
+        Wizard, Rogue, Paladin
+    ].forEach((cls) => {
+        var instance = new cls();
+        templates.push(instance.getData());
+    })
+
+    return templates;
+}
+
 CreateACharacter.prototype.getLayers = function() {
     var character = this.getState().character;
-    let data = { character, class_templates };
+
+    let data = { character, class_templates: this.getClassTemplates() };
 
     return new Layers({
         view_layer: new View('create_a_character/view', data),
@@ -32,16 +46,16 @@ CreateACharacter.prototype.processInput = function(input) {
         character.name = input.name;
     }
     
-    if(input.class){
-        class_templates.forEach((characterClass)=>{
-            if(characterClass.name !== input.class){ 
+    if(input.type){
+        this.getClassTemplates().forEach((characterClass)=>{
+            if(characterClass.type !== input.type){ 
                 return;
             }
-            character.stats = characterClass;
+            character.entity = characterClass;
         })   
     }
-
-    if(character.name && character.stats){
+    console.log(character)
+    if(character.name && character.entity){
         console.log('character created -> setStage to something else')
         this.setStage('room');
     }

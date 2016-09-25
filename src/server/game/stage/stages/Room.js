@@ -2,8 +2,6 @@ import Stage from '../stage'
 import Layers from '../../layers'
 import View from '../../view'
 
-import class_templates from '../../class_templates'
-
 import {DoorInputProcessor, ItemInputProcessor} from '../../input/room.js'
 
 
