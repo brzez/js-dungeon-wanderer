@@ -5,6 +5,7 @@ import View from '../../view'
 import {DoorInputProcessor, ItemInputProcessor, FightInputProcessor} from '../../input/room.js'
 
 import entityRegistry from '../../entity/registry'
+import battleLog from '../../battleLog'
 
 var Room = function(game) {
     Stage.apply(this, [game]);
@@ -37,6 +38,7 @@ Room.prototype.__proto__ = Stage.prototype;
  */
 
 Room.prototype.init = function() {
+    battleLog.add(this.getState().battleLog || [])
     this.getState().stage.data = {
         type: 'ugly room',
         doors: [
@@ -73,7 +75,11 @@ Room.prototype.onFinish = function() {
 };
 
 Room.prototype.saveState = function() {
+    this.getState().battleLog = battleLog.serialize();
     this.getState().character = this.getPlayer().serialize();
+    if(this.getMonster()){
+        this.getState().monster = this.getMonster().serialize();
+    }
 };
 
 Room.prototype.getPlayer = function() {
@@ -87,13 +93,16 @@ Room.prototype.getPlayer = function() {
 };
 
 Room.prototype.getMonster = function() {
-    var data = this.getData();
-    if(!data.monster){
-        return null;
+    if(!this.monsterInstance){
+        var data = this.getData();
+        if(!data.monster){
+            return null;
+        }
+        var data = data.monster;
+        var {type} = data;
+        return this.monsterInstance = entityRegistry.create(type, data);
     }
-    var data = data.monster;
-    var {type} = data;
-    return entityRegistry.create(type, data);
+    return this.monsterInstance;
 };
 
 Room.prototype.getLayers = function() {
@@ -101,8 +110,9 @@ Room.prototype.getLayers = function() {
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();
     let monster    = this.getMonster() ? this.getMonster().serialize() : null;
+    let log        = battleLog.serialize();
 
-    let data = { character, monster, stage_data, controls };
+    let data = { character, monster, stage_data, controls, log };
 
     return new Layers({
         view_layer: new View('room/view', data),

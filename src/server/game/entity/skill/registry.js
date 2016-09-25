@@ -6,7 +6,7 @@ var Attack = function() {
     this.type = this.name = 'Attack'
 };
 Attack.prototype.use = function(self, enemy) {
-    console.log('attack the enemy')
+    enemy.removeHealth(2);
 };
 Attack.prototype.serialize = function() {
     return {type: this.type, name: this.name};

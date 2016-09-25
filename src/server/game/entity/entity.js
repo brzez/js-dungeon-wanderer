@@ -1,5 +1,6 @@
 import itemRegistry from './item/registry'
 import skillRegistry from './skill/registry'
+import battleLog from '../battleLog'
 
 
 var Entity = function(data) {
@@ -33,9 +34,16 @@ Entity.prototype.addItem = function(type) {
     return this;
 };
 
-Entity.prototype.heal = function(amount) {
+Entity.prototype.addHealth = function(amount) {
     let hp = this.data.hp;
     hp.current = Math.min(hp.max, hp.current + amount);
+    battleLog.add(`${this.data.name} healed for ${amount}`)
+};
+
+Entity.prototype.removeHealth = function(amount) {
+    let hp = this.data.hp;
+    hp.current = Math.min(hp.max, hp.current - amount);
+    battleLog.add(`${this.data.name} got hit for ${amount}`)
 };
 
 Entity.prototype.useItem = function(type) {
@@ -48,8 +56,10 @@ Entity.prototype.useItem = function(type) {
         }
 
         let item = itemRegistry.create(type);
-        item.use(this);
 
+        battleLog.add(`${this.data.name} used item ${item.name}`)
+
+        item.use(this);
         items.splice(i, 1);
 
         return true;
@@ -66,7 +76,10 @@ Entity.prototype.useSkill = function(type, target) {
         }
 
         let skill = skillRegistry.create(type);
+
+        battleLog.add(`${this.data.name} used skill ${skill.name}`)
         skill.use(this, target);
+
 
         return true;
     }
