@@ -20,7 +20,7 @@ Entity.prototype.init = function(data) {
     this.data.name = data.name || data.type;
     this.data.hp   = normalizeStat(data.hp);
     this.data.mp   = normalizeStat(data.mp);
-    
+
     this.data.items = data.items || [];
     this.data.skills = data.skills || [];
 };
@@ -30,9 +30,9 @@ Entity.prototype.getData = function() {
 };
 
 Entity.prototype.serialize = function() {
-    var {type, hp, mp, items, skills} = this.data;
+    var {type, hp, mp, items, skills, name} = this.data;
     return {
-        type, hp, mp, items, skills
+        type, hp, mp, items, skills, name
     };
 };
 
