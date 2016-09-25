@@ -111,6 +111,17 @@ Room.prototype.getLayers = function() {
 };
 
 Room.prototype.processInput = function(input) {
+    /* 
+        handle item use
+        this can be done on any 'layer', so it needs to be handled here
+    */
+
+    if(input.use_item){
+        var itemType = input.use_item;
+        this.getPlayer().useItem(itemType);
+    }
+
+
     return this.resolveInputProcessor().processInput(input);
 };
 

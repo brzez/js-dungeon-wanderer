@@ -9,10 +9,14 @@
         </div>
     </div>
     inventory:
+    <form method="post">
     <ul>
     {{@character.items}}
-    <li>{{type}}</li>
+        <li>
+            <button name="use_item" value="{{type}}">{{type}}</button>
+        </li>
     {{@}}
+    </form>
     </ul>
 </div>
 

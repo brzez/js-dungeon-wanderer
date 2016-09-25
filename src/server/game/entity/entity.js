@@ -1,3 +1,5 @@
+import itemRegistry from './item/registry'
+
 
 var Entity = function(data) {
     this.data = {};
@@ -28,6 +30,30 @@ Entity.prototype.init = function(data) {
 Entity.prototype.addItem = function(type) {
     this.data.items.push(type);
     return this;
+};
+
+Entity.prototype.heal = function(amount) {
+    let hp = this.data.hp;
+    hp.current = Math.min(hp.max, hp.current + amount);
+};
+
+Entity.prototype.useItem = function(type) {
+    let items = this.data.items;
+    console.log('using item', type);
+    for(let i = 0;i < items.length; i++){
+        console.log(items[i], type);
+        if(items[i].type != type){
+            continue;
+        }
+
+        let item = itemRegistry.create(type);
+        item.use(this);
+
+        items.splice(i, 1);
+
+        return true;
+    }
+    return false;
 };
 
 Entity.prototype.getData = function() {
