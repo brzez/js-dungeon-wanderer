@@ -28,3 +28,22 @@ DoorInputProcessor.prototype.processInput = function(input) {
     })
 };
 DoorInputProcessor.prototype.__proto__ = InputProcessor.prototype;
+
+export var ItemInputProcessor = function(stage) {
+    InputProcessor.call(this, stage);
+};
+ItemInputProcessor.prototype.getControls = function() {
+    var item = this.getStage().getData().item;
+
+    return {item};
+};
+ItemInputProcessor.prototype.processInput = function(input) {
+    if(input.action === 'pick_up'){
+        let item = this.getState().stage.data.item;
+        
+        this.getState().character.items.push(item);
+
+        delete this.getState().stage.data.item;
+    }
+};
+ItemInputProcessor.prototype.__proto__ = InputProcessor.prototype;

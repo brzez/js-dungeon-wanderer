@@ -4,6 +4,9 @@ var InputProcessor = function(stage) {
 InputProcessor.prototype.getStage = function() {
     return this.stage;
 };
+InputProcessor.prototype.getState = function() {
+    return this.getStage().getState();
+};
 InputProcessor.prototype.getControls = function() {
     return {};
 };

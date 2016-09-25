@@ -54,7 +54,8 @@ Game.prototype.init = function(state) {
             name: 'mage',
             hp: 40,
             mp: 35,
-        }
+        },
+        items: []
     }
     this.setStage('room');
     /* */

@@ -4,7 +4,7 @@ import View from '../../view'
 
 import class_templates from '../../class_templates'
 
-import {DoorInputProcessor} from '../../input/room.js'
+import {DoorInputProcessor, ItemInputProcessor} from '../../input/room.js'
 
 
 var Room = function(game) {
@@ -59,6 +59,10 @@ Room.prototype.init = function() {
         - data.doors/default - controls for opening doors
  */
 Room.prototype.resolveInputProcessor = function() {
+    var data = this.getData();
+    if(data.item){
+        return new ItemInputProcessor(this);
+    }
     return new DoorInputProcessor(this);
 };
 
