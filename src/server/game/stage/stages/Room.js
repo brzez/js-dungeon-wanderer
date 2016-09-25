@@ -46,7 +46,7 @@ Room.prototype.init = function() {
             {type: 'golden'},
         ],
         item: {type: 'banana'},
-        monster: {type: 'potato' /* ... more data */}
+        monster: {type: 'Rat'}
     };
 };
 
@@ -69,17 +69,30 @@ Room.prototype.resolveInputProcessor = function() {
 };
 
 Room.prototype.getPlayer = function() {
-    var entity = this.getState().character;
-    var {type} = entity;
-    return entityRegistry.create(type, entity);
+    var data = this.getState().character;
+    var {type} = data;
+    return entityRegistry.create(type, data);
+};
+
+Room.prototype.getMonster = function() {
+    var data = this.getData();
+    if(!data.monster){
+        return null;
+    }
+    var data = data.monster;
+    var {type} = data;
+    return entityRegistry.create(type, data);
 };
 
 Room.prototype.getLayers = function() {
     let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();
+    let monster    = this.getMonster().serialize();
 
-    let data = { character, stage_data, controls };
+    let data = { character, monster, stage_data, controls };
+
+    console.log(data)
 
     return new Layers({
         view_layer: new View('room/view', data),

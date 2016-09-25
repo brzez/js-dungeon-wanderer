@@ -6,12 +6,7 @@ var Wizard = function(data) {
         name: data.name,
         type: 'Wizard',
         hp: 10,
-        mp: 15,
-        skills: [
-            {type: 'attack', skill: function(self, enemy) {
-                console.log('akakeek')
-            }}
-        ]
+        mp: 15
     });
 }
 Wizard.prototype.__proto__ = Entity.prototype;
