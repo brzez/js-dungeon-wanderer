@@ -47,3 +47,19 @@ ItemInputProcessor.prototype.processInput = function(input) {
     }
 };
 ItemInputProcessor.prototype.__proto__ = InputProcessor.prototype;
+
+
+export var FightInputProcessor = function(stage) {
+    InputProcessor.call(this, stage);
+};
+
+FightInputProcessor.prototype.getControls = function() {
+    var monster = this.getStage().getData().monster;
+
+    return {monster};
+};
+
+FightInputProcessor.prototype.processInput = function(input) {
+};
+
+FightInputProcessor.prototype.__proto__ = InputProcessor.prototype;

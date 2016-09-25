@@ -5,7 +5,12 @@ var Wizard = function() {
     Entity.call(this, {
         type: 'Wizard',
         hp: 10,
-        mp: 15
+        mp: 15,
+        skills: {
+            'attack': function(self, enemy) {
+                console.log('AIEIEIEOE !!')
+            }
+        }
     });
 }
 Wizard.prototype.__proto__ = Entity.prototype;

@@ -2,7 +2,7 @@ import Stage from '../stage'
 import Layers from '../../layers'
 import View from '../../view'
 
-import {DoorInputProcessor, ItemInputProcessor} from '../../input/room.js'
+import {DoorInputProcessor, ItemInputProcessor, FightInputProcessor} from '../../input/room.js'
 
 
 var Room = function(game) {
@@ -58,6 +58,9 @@ Room.prototype.init = function() {
  */
 Room.prototype.resolveInputProcessor = function() {
     var data = this.getData();
+    if(data.monster){
+        return new FightInputProcessor(this);
+    }
     if(data.item){
         return new ItemInputProcessor(this);
     }

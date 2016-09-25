@@ -9,17 +9,26 @@
         </div>
     </div>
     inventory:
-    <div>
-        {{@character.entity.items}}
-        <div>{{type}}</div>
-        {{@}}
-    </div>
+    <ul>
+    {{@character.entity.items}}
+    <li>{{type}}</li>
+    {{@}}
+    </ul>
 </div>
 
 {{#controls.doors}}
 <form method="post">
     {{@controls.doors}}
         <button name="door" value="{{value}}">{{door.type}}</button>
+    {{@}}
+</form>
+{{/}}
+
+{{#controls.monster}}
+<form method="post">
+    {{@character.entity.skills}}
+    skillz
+        <button name="skill" value="{{value}}">{{door.type}}</button>
     {{@}}
 </form>
 {{/}}
