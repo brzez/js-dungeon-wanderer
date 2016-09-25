@@ -50,7 +50,11 @@ Game.prototype.init = function(state) {
     /* mocked state, skips creating character */
     this.state.character = {
         name: 'aieieo',
-        class: {}
+        stats: {
+            name: 'mage',
+            hp: 40,
+            mp: 35,
+        }
     }
     this.setStage('room');
     /* */

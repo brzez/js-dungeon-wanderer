@@ -7,6 +7,7 @@ import class_templates from '../../class_templates'
 
 var CreateACharacter = function(game) {
     Stage.apply(this, [game]);
+    // @todo: move to init()
     if(!this.getState().character){
         this.getState().character = {};
     }
@@ -36,11 +37,11 @@ CreateACharacter.prototype.processInput = function(input) {
             if(characterClass.name !== input.class){ 
                 return;
             }
-            character.class = characterClass;
+            character.stats = characterClass;
         })   
     }
 
-    if(character.name && character.class){
+    if(character.name && character.stats){
         console.log('character created -> setStage to something else')
         this.setStage('room');
     }
