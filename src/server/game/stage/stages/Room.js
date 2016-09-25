@@ -4,6 +4,7 @@ import View from '../../view'
 
 import {DoorInputProcessor, ItemInputProcessor, FightInputProcessor} from '../../input/room.js'
 
+import entityRegistry from '../../entity/registry'
 
 var Room = function(game) {
     Stage.apply(this, [game]);
@@ -67,8 +68,14 @@ Room.prototype.resolveInputProcessor = function() {
     return new DoorInputProcessor(this);
 };
 
+Room.prototype.getPlayer = function() {
+    var entity = this.getState().character;
+    var {type} = entity;
+    return entityRegistry.create(type, entity);
+};
+
 Room.prototype.getLayers = function() {
-    let character  = this.getState().character;
+    let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();
 

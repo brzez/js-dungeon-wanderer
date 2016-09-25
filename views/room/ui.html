@@ -2,15 +2,15 @@
     <div class="name">{{character.name}}</div>
     <div class="rows">
         <div class="col">Health:</div><div class="col">
-            {{character.entity.hp.current}} / {{character.entity.hp.max}}
+            {{character.hp.current}} / {{character.hp.max}}
         </div>
         <div class="col">Mana:</div><div class="col">
-            {{character.entity.mp.current}} / {{character.entity.mp.max}}
+            {{character.mp.current}} / {{character.mp.max}}
         </div>
     </div>
     inventory:
     <ul>
-    {{@character.entity.items}}
+    {{@character.items}}
     <li>{{type}}</li>
     {{@}}
     </ul>
@@ -26,7 +26,7 @@
 
 {{#controls.monster}}
 <form method="post">
-    {{@character.entity.skills}}
+    {{@character.skills}}
         <button name="use_skill" value="{{type}}">{{type}}</button>
     {{@}}
 </form>

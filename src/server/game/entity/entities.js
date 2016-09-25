@@ -1,8 +1,9 @@
 import Entity from './entity'
 
 
-var Wizard = function() {
+var Wizard = function(data) {
     Entity.call(this, {
+        name: data.name,
         type: 'Wizard',
         hp: 10,
         mp: 15,
@@ -15,8 +16,9 @@ var Wizard = function() {
 }
 Wizard.prototype.__proto__ = Entity.prototype;
 
-var Rogue = function() {
+var Rogue = function(data) {
     Entity.call(this, {
+        name: data.name,
         type: 'Rogue',
         hp: 20,
         mp: 10
@@ -24,8 +26,9 @@ var Rogue = function() {
 }
 Rogue.prototype.__proto__ = Entity.prototype;
 
-var Paladin = function() {
+var Paladin = function(data) {
     Entity.call(this, {
+        name: data.name,
         type: 'Paladin',
         hp: 40,
         mp: 10
