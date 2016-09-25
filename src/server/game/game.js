@@ -29,14 +29,18 @@ var Game = function(state) {
 };
 
 Game.prototype.getStage = function() {
+    if(this.stageInstance){
+        return this.stageInstance;
+    }
     let stage = this.state.stage;
     if(!stage){
         return null;
     }
-    return this.stageFactory.create(stage.name, stage.data);
+    return this.stageInstance = this.stageFactory.create(stage.name, stage.data);
 };
 
 Game.prototype.setStage = function(name, data = {}) {
+    this.stageInstance = null;
     var stage = this.stageFactory.create(name, data);
     this.state.stage = {
         name: name,
@@ -55,10 +59,17 @@ Game.prototype.init = function(state) {
             entity: null
         }
     }
+    console.log('init')
+};
+
+Game.prototype.onFinish = function() {
+    var stage = this.getStage();
+    if(stage){
+        stage.onFinish();
+    }
 };
 
 Game.prototype.processInput = function(input) {
-    console.log('Processing input', input);
     var stage = this.getStage();
     stage.processInput(input);
 };

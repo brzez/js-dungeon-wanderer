@@ -40,8 +40,8 @@ ItemInputProcessor.prototype.getControls = function() {
 ItemInputProcessor.prototype.processInput = function(input) {
     if(input.action === 'pick_up'){
         let item = this.getState().stage.data.item;
-        
-        this.getState().character.entity.items.push(item);
+        this.getPlayer().addItem(item);
+        console.log(this.getPlayer());
 
         delete this.getState().stage.data.item;
     }

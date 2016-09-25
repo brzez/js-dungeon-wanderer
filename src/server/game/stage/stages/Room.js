@@ -45,8 +45,8 @@ Room.prototype.init = function() {
             {type: 'wooden'},
             {type: 'golden'},
         ],
-        item: {type: 'banana'},
-        monster: {type: 'Rat'}
+        item: {type: 'Health Potion'},
+        monster: null //{type: 'Rat'}
     };
 };
 
@@ -68,10 +68,19 @@ Room.prototype.resolveInputProcessor = function() {
     return new DoorInputProcessor(this);
 };
 
+Room.prototype.onFinish = function() {
+    console.log('Room#onFinish')
+    console.log(this.getPlayer());
+};
+
 Room.prototype.getPlayer = function() {
-    var data = this.getState().character;
-    var {type} = data;
-    return entityRegistry.create(type, data);
+    if(!this.playerInstance){
+        var data = this.getState().character;
+        var {type} = data;
+        this.playerInstance = entityRegistry.create(type, data);
+        return this.getPlayer();
+    }   
+    return this.playerInstance;
 };
 
 Room.prototype.getMonster = function() {
@@ -88,11 +97,9 @@ Room.prototype.getLayers = function() {
     let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();
-    let monster    = this.getMonster().serialize();
+    let monster    = this.getMonster() ? this.getMonster().serialize() : null;
 
     let data = { character, monster, stage_data, controls };
-
-    console.log(data)
 
     return new Layers({
         view_layer: new View('room/view', data),

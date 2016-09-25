@@ -25,6 +25,11 @@ Entity.prototype.init = function(data) {
     this.data.skills = data.skills || [];
 };
 
+Entity.prototype.addItem = function(type) {
+    this.data.items.push(type);
+    return this;
+};
+
 Entity.prototype.getData = function() {
     return this.data;
 };

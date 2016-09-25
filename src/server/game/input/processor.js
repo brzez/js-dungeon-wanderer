@@ -12,4 +12,8 @@ InputProcessor.prototype.getControls = function() {
 };
 InputProcessor.prototype.processInput = function(input) {};
 
+InputProcessor.prototype.getPlayer = function() {
+    return this.getStage().getPlayer();
+};
+
 export default InputProcessor;

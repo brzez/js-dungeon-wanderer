@@ -47,13 +47,19 @@ export default function(options){
             });
         };
 
+        let onFinish = function() {
+            game.onFinish()
+        }
+
         router.get('/', function(req, res) {
             renderResponse();
+            return onFinish();
         });
 
         router.post('/', function(req, res) {
             game.processInput(req.body);
             renderResponse();
+            return onFinish();
         });
 
         router.get('/template', function(req, res) {
