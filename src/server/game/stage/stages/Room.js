@@ -69,8 +69,11 @@ Room.prototype.resolveInputProcessor = function() {
 };
 
 Room.prototype.onFinish = function() {
-    console.log('Room#onFinish')
-    console.log(this.getPlayer());
+    this.saveState()
+};
+
+Room.prototype.saveState = function() {
+    this.getState().character = this.getPlayer().serialize();
 };
 
 Room.prototype.getPlayer = function() {

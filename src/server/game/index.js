@@ -37,9 +37,13 @@ export default function(options){
 
         let renderResponse = function() {
             let layers = game.getLayers();
+            
+            onFinish(); // before response end
+
             if(req.xhr){
                 return res.send(layers.toJson());
             }
+
 
             // render all layers
             layers.render(app).then(function(result) {
@@ -53,13 +57,11 @@ export default function(options){
 
         router.get('/', function(req, res) {
             renderResponse();
-            return onFinish();
         });
 
         router.post('/', function(req, res) {
             game.processInput(req.body);
             renderResponse();
-            return onFinish();
         });
 
         router.get('/template', function(req, res) {

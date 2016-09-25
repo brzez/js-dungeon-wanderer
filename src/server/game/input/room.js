@@ -41,8 +41,6 @@ ItemInputProcessor.prototype.processInput = function(input) {
     if(input.action === 'pick_up'){
         let item = this.getState().stage.data.item;
         this.getPlayer().addItem(item);
-        console.log(this.getPlayer());
-
         delete this.getState().stage.data.item;
     }
 };

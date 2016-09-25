@@ -54,12 +54,7 @@ Game.prototype.init = function(state) {
     // initial stage
     if(this.getStage() === null){
         this.setStage('create_a_character');
-        this.state.character = {
-            name: '',
-            entity: null
-        }
     }
-    console.log('init')
 };
 
 Game.prototype.onFinish = function() {

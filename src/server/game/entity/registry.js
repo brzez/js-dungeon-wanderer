@@ -12,12 +12,11 @@ entityRegistry.register('Paladin', (data) => new Paladin(data));
 
 
 entityRegistry.register('Rat', (data) => {
-    return new Entity({
-        name: data.name,
+    return new Entity(Object.assign({
         type: 'Rat',
         hp: 5,
         mp: 0,
-    });
+    }, data));
 })
 
 
