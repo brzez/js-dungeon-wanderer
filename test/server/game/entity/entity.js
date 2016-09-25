@@ -22,6 +22,12 @@ describe('Entity', () => {
                 var e = new Entity({});
             }, Error);
         })
+        it('data.name should be data.type if not defined', function() {
+            let a = new Entity({type: 'foo'});
+            assert.equal(a.data.name, 'foo');
+            let b = new Entity({type: 'foo', name: 'bar'});
+            assert.equal(b.data.name, 'bar');
+        })
     })
     describe('#getData', function() {
         it('should return normalized data object', function() {
