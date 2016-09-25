@@ -31,4 +31,17 @@ describe('Entity', () => {
             assert.deepEqual(data.mp, {max: 15, current: 15});
         })
     })
+    describe('#serialize', function() {
+        it('should return serialized data', function() {
+            var e = new Entity({type: 'test', hp: 10, mp: 15});
+            var serialized = e.serialize();
+            assert.deepEqual(serialized, {
+                type: 'test',
+                hp: {current: 10, max: 10},
+                mp: {current: 15, max: 15},
+                items: [],
+                skills: []
+            });
+        })
+    })
 });

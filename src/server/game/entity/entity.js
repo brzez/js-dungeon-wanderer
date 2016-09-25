@@ -27,5 +27,12 @@ Entity.prototype.getData = function() {
     return this.data;
 };
 
+Entity.prototype.serialize = function() {
+    var {type, hp, mp, items, skills} = this.data;
+    return {
+        type, hp, mp, items, skills
+    };
+};
+
 
 export default Entity;
