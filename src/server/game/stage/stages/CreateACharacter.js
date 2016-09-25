@@ -2,12 +2,14 @@ import Stage from '../stage'
 import Layers from '../../layers'
 import View from '../../view'
 
-import class_templates from '../../class_templates'
+import entityRegistry from '../../entity/registry'
 
 
 var CreateACharacter = function(game) {
     Stage.apply(this, [game]);
-    // @todo: move to init()
+};
+
+CreateACharacter.prototype.init = function() {
     if(!this.getState().character){
         this.getState().character = {};
     }
@@ -15,9 +17,20 @@ var CreateACharacter = function(game) {
 
 CreateACharacter.prototype.__proto__ = Stage.prototype;
 
+CreateACharacter.prototype.getClassTemplates = function() {
+    var templates = [];
+
+    ['Wizard', 'Rogue', 'Paladin']
+    .forEach((cls) => {
+        var instance = entityRegistry.create(cls);
+        templates.push(instance.serialize());
+    });
+
+    return templates;
+}
+
 CreateACharacter.prototype.getLayers = function() {
-    var character = this.getState().character;
-    let data = { character, class_templates };
+    let data = {data: this.getData(), class_templates: this.getClassTemplates()};
 
     return new Layers({
         view_layer: new View('create_a_character/view', data),
@@ -26,22 +39,22 @@ CreateACharacter.prototype.getLayers = function() {
 };
 
 CreateACharacter.prototype.processInput = function(input) {
-    let character = this.getState().character;
+    let state = this.getState();
+    let data  = this.getData();
 
     if(input.name){
-        character.name = input.name;
+        data.name = input.name;
     }
-    
-    if(input.class){
-        class_templates.forEach((characterClass)=>{
-            if(characterClass.name !== input.class){ 
-                return;
-            }
-            character.stats = characterClass;
-        })   
+    if(input.type){
+        data.type = input.type;
     }
 
-    if(character.name && character.stats){
+    if(data.name && data.type){
+        // name + class set.
+        // create a character and we are done here.
+        var character = entityRegistry.create(data.type);
+        state.character = character.serialize()
+        state.character.name = data.name;
         console.log('character created -> setStage to something else')
         this.setStage('room');
     }

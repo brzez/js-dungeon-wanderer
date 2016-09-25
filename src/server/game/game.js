@@ -47,22 +47,13 @@ Game.prototype.setStage = function(name, data = {}) {
 };
 
 Game.prototype.init = function(state) {
-    /* mocked state, skips creating character */
-    this.state.character = {
-        name: 'aieieo',
-        stats: {
-            name: 'mage',
-            hp: 40,
-            mp: 35,
-        },
-        items: []
-    }
-    this.setStage('room');
-    /* */
-
     // initial stage
     if(this.getStage() === null){
         this.setStage('create_a_character');
+        this.state.character = {
+            name: '',
+            entity: null
+        }
     }
 };
 

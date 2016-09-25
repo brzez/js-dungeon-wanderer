@@ -41,9 +41,25 @@ ItemInputProcessor.prototype.processInput = function(input) {
     if(input.action === 'pick_up'){
         let item = this.getState().stage.data.item;
         
-        this.getState().character.items.push(item);
+        this.getState().character.entity.items.push(item);
 
         delete this.getState().stage.data.item;
     }
 };
 ItemInputProcessor.prototype.__proto__ = InputProcessor.prototype;
+
+
+export var FightInputProcessor = function(stage) {
+    InputProcessor.call(this, stage);
+};
+
+FightInputProcessor.prototype.getControls = function() {
+    var monster = this.getStage().getData().monster;
+
+    return {monster};
+};
+
+FightInputProcessor.prototype.processInput = function(input) {
+};
+
+FightInputProcessor.prototype.__proto__ = InputProcessor.prototype;
