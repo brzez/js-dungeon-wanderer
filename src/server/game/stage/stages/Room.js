@@ -4,10 +4,13 @@ import View from '../../view'
 
 import class_templates from '../../class_templates'
 
+import {DoorInputProcessor} from '../../input/room.js'
+
 
 var Room = function(game) {
     Stage.apply(this, [game]);
 };
+Room.prototype.__proto__ = Stage.prototype;
 /*
     view:
     You are in a *room description* room.
@@ -46,17 +49,25 @@ Room.prototype.init = function() {
         item: {type: 'banana'},
         monster: {type: 'potato' /* ... more data */}
     };
-
-    console.log(this.getState().stage)
 };
 
-Room.prototype.__proto__ = Stage.prototype;
+/*
+    resolve current controls based on the room state.
+    so if: 
+        - data.monster - controls for fighting a monster
+        - data.item    - controls for item pickup
+        - data.doors/default - controls for opening doors
+ */
+Room.prototype.resolveInputProcessor = function() {
+    return new DoorInputProcessor(this);
+};
 
 Room.prototype.getLayers = function() {
-    let character = this.getState().character;
+    let character  = this.getState().character;
     let stage_data = this.getData();
+    let controls   = this.resolveInputProcessor().getControls();
 
-    let data = { character, stage_data };
+    let data = { character, stage_data, controls };
 
     return new Layers({
         view_layer: new View('room/view', data),
@@ -65,6 +76,7 @@ Room.prototype.getLayers = function() {
 };
 
 Room.prototype.processInput = function(input) {
+    return this.resolveInputProcessor().processInput(input);
 };
 
 export default Room;
