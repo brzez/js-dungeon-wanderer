@@ -6,6 +6,7 @@ import {DoorInputProcessor, ItemInputProcessor, FightInputProcessor} from '../..
 
 import entityRegistry from '../../entity/registry'
 import battleLog from '../../battleLog'
+import {instance as roomGenerator} from './room/generator'
 
 var Room = function(game) {
     Stage.apply(this, [game]);
@@ -38,18 +39,9 @@ Room.prototype.__proto__ = Stage.prototype;
  */
 
 Room.prototype.init = function() {
-    battleLog.add(this.getState().battleLog || [])
-    this.getState().stage.data = {
-        type: 'ugly room',
-        doors: [
-            // empty ob: no door
-            {},
-            {type: 'wooden'},
-            {type: 'golden'},
-        ],
-        item: {type: 'Health Potion'},
-        monster: {type: 'Rat'}
-    };
+    battleLog.add(this.getState().battleLog || []);
+    roomGenerator.generate(this.getData());
+    this.getState().stage.data = roomGenerator.generate();
 };
 
 /*

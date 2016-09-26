@@ -14,7 +14,7 @@ entityRegistry.register('Paladin', (data) => new Paladin(data));
 entityRegistry.register('Rat', (data) => {
     return new Entity(Object.assign({
         type: 'Rat',
-        hp: 50,
+        hp: 2,
         mp: 0,
         skills: [{type: 'Attack'}]
     }, data));
