@@ -36,16 +36,11 @@
     <div class="inv">
         <div class="sr">Inventory: </div>
         <form method="post">
-            <button>item 1</button>
-            <button>item 2</button>
-            <button>item 3</button>
-            <button>item 4</button>
-            <button>item 5</button>
-            <button>item 6</button>
-            <button>item 7</button>
-            <button>item 8</button>
-            <button>item 9</button>
-            <button>item 10</button>
+            {{@character.items}}
+            <button name="use_item" value="{{type}}">
+                <div class="item {{cssClass}}"></div><span class="sr">{{name}}</span>
+            </button>
+            {{@}}
         </form>
     </div>
     <div class="clearfix"></div>

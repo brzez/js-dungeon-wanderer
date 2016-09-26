@@ -20,13 +20,13 @@
 
 .inv
   width 20%
-  float left
+  float left  
   @media(max-width $sm_width)
     float none
     width 100%
   button
     display inline-block
-    width (100%/4)
+    width (100%/2)
     float left
     
 .actions
@@ -43,5 +43,8 @@
   width 30%
   float left
   background random_color(.4)
+  min-height 100px
   li
     list-style none
+
+@import 'item'
