@@ -12,7 +12,19 @@ HealthPotion.prototype.serialize = function() {
     return {type: this.type, name: this.name};
 };
 
-itemRegistry.register('Health Potion', () => new HealthPotion)
+itemRegistry.register('Health Potion', () => new HealthPotion);
+
+var ManaPotion = function() {
+    this.type = this.name = 'Mana Potion'
+};
+ManaPotion.prototype.use = function(self) {
+    self.addMana(10);
+};
+ManaPotion.prototype.serialize = function() {
+    return {type: this.type, name: this.name};
+};
+
+itemRegistry.register('Mana Potion', () => new ManaPotion);
 
 
 export default itemRegistry;

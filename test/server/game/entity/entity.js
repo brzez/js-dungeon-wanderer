@@ -67,4 +67,20 @@ describe('Entity', () => {
             assert.equal(e.data.hp.current, 0);
         })
     })
+    describe('#addMana', function() {
+        it('should max out on maximum hp', function() {
+            var e = new Entity({type: 'test', name: 'foo', hp: 10, mp: {current: 20, max: 30}});
+            assert.equal(e.data.mp.current, 20);
+            e.addMana(300);
+            assert.equal(e.data.mp.current, 30);
+        })
+    })
+    describe('#removeMana', function() {
+        it('should prevent from going lower than 0', function() {
+            var e = new Entity({type: 'test', name: 'foo', hp: 10, mp: {current: 20, max: 30}});
+            assert.equal(e.data.mp.current, 20);
+            e.removeMana(300);
+            assert.equal(e.data.mp.current, 0);
+        })
+    })
 });

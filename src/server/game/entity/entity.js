@@ -46,6 +46,18 @@ Entity.prototype.removeHealth = function(amount) {
     battleLog.add(`${this.data.name} got hit for ${amount}`)
 };
 
+Entity.prototype.addMana = function(amount) {
+    let mp = this.data.mp;
+    mp.current = Math.min(mp.max, mp.current + amount);
+    battleLog.add(`${this.data.name} restored ${amount} mana`)
+};
+
+Entity.prototype.removeMana = function(amount) {
+    let mp = this.data.mp;
+    mp.current = Math.max(0, mp.current - amount);
+    battleLog.add(`${this.data.name} used ${amount} mana`)
+};
+
 Entity.prototype.useItem = function(type) {
     let items = this.data.items;
     console.log('using item', type);

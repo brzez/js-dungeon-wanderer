@@ -56,7 +56,12 @@ Game.prototype.init = function(state) {
         return;
     }
     // mock player, skip create_a_character
-    state.character = entityRegistry.create('Wizard').serialize();
+    let w = entityRegistry.create('Wizard');
+    for(let i = 3; i-->0;){
+        w.addItem({type: 'Health Potion'})
+        w.addItem({type: 'Mana Potion'})
+    }
+    state.character = w.serialize();
     console.log(state)
     return this.setStage('room');
     // 
