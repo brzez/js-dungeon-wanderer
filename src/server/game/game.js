@@ -3,6 +3,7 @@ import Layers from './layers'
 import StageFactory from './stage/factory'
 
 import register_stages from './register_stages'
+import entityRegistry from './entity/registry'
 
 
 /*
@@ -29,31 +30,56 @@ var Game = function(state) {
 };
 
 Game.prototype.getStage = function() {
+    if(this.stageInstance){
+        return this.stageInstance;
+    }
     let stage = this.state.stage;
     if(!stage){
         return null;
     }
-    return this.stageFactory.create(stage.name, stage.data);
+    return this.stageInstance = this.stageFactory.create(stage.name, stage.data);
 };
 
-Game.prototype.setStage = function(name) {
-    var stage = this.stageFactory.create(name, {});
+Game.prototype.setStage = function(name, data = {}) {
+    this.stageInstance = null;
+    var stage = this.stageFactory.create(name, data);
     this.state.stage = {
         name: name,
         data: stage.serialize()
     }
+    stage.init();
     return stage;
 };
 
 Game.prototype.init = function(state) {
+    if(this.getStage() !== null){
+        return;
+    }
+    // mock player, skip create_a_character
+    let w = entityRegistry.create('Wizard');
+    for(let i = 3; i-->0;){
+        w.addItem({type: 'Health Potion'})
+        w.addItem({type: 'Mana Potion'})
+    }
+    state.character = w.serialize();
+    console.log(state)
+    return this.setStage('room');
+    // 
+
     // initial stage
     if(this.getStage() === null){
         this.setStage('create_a_character');
     }
 };
 
+Game.prototype.onFinish = function() {
+    var stage = this.getStage();
+    if(stage){
+        stage.onFinish();
+    }
+};
+
 Game.prototype.processInput = function(input) {
-    console.log('Processing input', input);
     var stage = this.getStage();
     stage.processInput(input);
 };

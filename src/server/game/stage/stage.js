@@ -12,6 +12,18 @@ Stage.prototype.getState = function() {
     return this.game.state;
 };
 
+Stage.prototype.setStage = function(stage, data) {
+    return this.game.setStage(stage, data);
+};
+
+Stage.prototype.onFinish = function() {
+    
+};
+
+Stage.prototype.init = function() {
+    
+};
+
 Stage.prototype.getData = function() {
     return this.getState().stage.data;
 };

@@ -1,0 +1,60 @@
+<div class="stats_info">
+    <div class="name">{{character.name}}</div>
+    <div class="rows">
+        <div class="col">Health:</div><div class="col">
+            {{character.hp.current}} / {{character.hp.max}}
+        </div>
+        <div class="col">Mana:</div><div class="col">
+            {{character.mp.current}} / {{character.mp.max}}
+        </div>
+    </div>
+    inventory:
+    <form method="post">
+    <ul>
+    {{@character.items}}
+        <li>
+            <button name="use_item" value="{{type}}">{{type}}</button>
+        </li>
+    {{@}}
+    </form>
+    </ul>
+</div>
+
+{{#monster}}
+<div class="name">{{monster.name}}</div>
+<div class="rows">
+    <div class="col">Health:</div><div class="col">
+        {{monster.hp.current}} / {{monster.hp.max}}
+    </div>
+    <div class="col">Mana:</div><div class="col">
+        {{monster.mp.current}} / {{monster.mp.max}}
+    </div>
+</div>
+{{/}}
+
+{{#controls.doors}}
+<form method="post">
+    {{@controls.doors}}
+        <button name="door" value="{{value}}">Open {{door.type}} door</button>
+    {{@}}
+</form>
+{{/}}
+
+{{#controls.monster}}
+<form method="post">
+    {{@character.skills}}
+        <button name="use_skill" value="{{type}}">{{type}}</button>
+    {{@}}
+</form>
+{{/}}
+
+{{#controls.item}}
+<form method="post">
+    <button name="action" value="pick_up">Pick up {{controls.item.type}}</button>
+</form>
+{{/}}
+
+
+{{@log}}
+<div>{{text}}</div>
+{{@}}
