@@ -77,8 +77,10 @@ Room.prototype.onFinish = function() {
 Room.prototype.saveState = function() {
     this.getState().battleLog = battleLog.serialize();
     this.getState().character = this.getPlayer().serialize();
+    this.getData().monster = null;
     if(this.getMonster()){
-        this.getData().monster = this.getMonster().serialize();
+        let monster = this.getMonster();
+        this.getData().monster = monster.serialize();
     }
 };
 
@@ -105,6 +107,10 @@ Room.prototype.getMonster = function() {
     return this.monsterInstance;
 };
 
+Room.prototype.removeMonster = function() {
+    this.getData().monster = this.monsterInstance = null;
+};
+
 /**
  * this will update the current fight (if monster present)
  */
@@ -119,7 +125,12 @@ Room.prototype.updateMonster = function() {
     if(!this.getMonster()){
         return;
     }
-
+    let monster = this.getMonster();
+    if(!monster.isAlive()){
+        battleLog.add(`${monster.data.name} died`);
+        this.removeMonster();
+        return;
+    }
 };
 
 Room.prototype.getLayers = function() {
