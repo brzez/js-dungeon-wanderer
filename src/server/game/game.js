@@ -4,6 +4,7 @@ import StageFactory from './stage/factory'
 
 import register_stages from './register_stages'
 import entityRegistry from './entity/registry'
+import itemRegistry from './entity/item/registry'
 
 
 /*
@@ -58,8 +59,8 @@ Game.prototype.init = function(state) {
     // mock player, skip create_a_character
     let w = entityRegistry.create('Wizard');
     for(let i = 3; i-->0;){
-        w.addItem({type: 'Health Potion'})
-        w.addItem({type: 'Mana Potion'})
+        w.addItem(itemRegistry.create('Health Potion').serialize())
+        w.addItem(itemRegistry.create('Mana Potion').serialize())
     }
     state.character = w.serialize();
     console.log(state)

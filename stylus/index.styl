@@ -1,7 +1,21 @@
+@import 'functions'
 @import 'reset'
 @import 'vars'
 
 @import 'room'
+@import 'ui'
+
+// for screen readers + lynx
+.sr
+  position absolute
+  width 1px
+  height 1px
+  padding 0
+  margin -1px
+  overflow hidden
+  clip rect(0,0,0,0)
+  border 0
+
 
 .game
   margin 0 auto
@@ -13,12 +27,8 @@
     height 300px
     background #000
     color #fff
-  &__ui
-    height 500px
-    background #eee
-    text-align center
     
-.cleafix
+.clearfix
   clear both
 
 h1

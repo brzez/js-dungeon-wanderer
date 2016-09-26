@@ -18,7 +18,7 @@ var Log = function() {
     this.limit = function(limit) {
         //whatever
         while(log.length > limit){
-            log.pop(); 
+            log.shift()
         }
     }
 }
