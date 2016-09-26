@@ -83,6 +83,11 @@ Entity.prototype.useItem = function(type) {
     return false;
 };
 
+Entity.prototype.useRandomSkill = function(target) {
+    var randomSkill = this.data.skills[Math.random() * this.data.skills.length | 0];
+    this.useSkill(randomSkill.type, target);
+};
+
 Entity.prototype.useSkill = function(type, target) {
     let skills = this.data.skills;
     console.log('using skill', type);

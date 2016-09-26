@@ -82,6 +82,9 @@ Room.prototype.saveState = function() {
         let monster = this.getMonster();
         this.getData().monster = monster.serialize();
     }
+    if(!this.getPlayer().isAlive()){
+        return this.setStage('game_over');
+    }
 };
 
 Room.prototype.getPlayer = function() {
@@ -115,12 +118,9 @@ Room.prototype.removeMonster = function() {
  * this will update the current fight (if monster present)
  */
 Room.prototype.updateFight = function() {
+    let player = this.getPlayer();
     // check if player is dead
     // if yeah then go to 'game over' stage
-    
-    if(!this.getPlayer().isAlive()){
-        return this.setStage('game_over');
-    }
 
     // check if monster is present
     // if it's dead - remove it
@@ -135,6 +135,12 @@ Room.prototype.updateFight = function() {
         this.removeMonster();
         return;
     }
+
+    monster.useRandomSkill(player);
+
+    if(!player.isAlive()){
+        battleLog.add(`${player.data.name} died`);
+    }
 };
 
 Room.prototype.getLayers = function() {
@@ -146,9 +152,11 @@ Room.prototype.getLayers = function() {
 
     let data = { character, monster, stage_data, controls, log };
 
+    let ui_name = this.getPlayer().isAlive() ? 'room/ui' : 'room/ui_dead';
+
     return new Layers({
         view_layer: new View('room/view', data),
-        ui_layer: new View('room/ui', data)
+        ui_layer: new View(ui_name, data)
     })
 };
 
