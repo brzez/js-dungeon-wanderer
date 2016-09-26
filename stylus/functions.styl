@@ -1,0 +1,15 @@
+random(min,max)
+  return floor(math(0, 'random')*(max - min + 1) + min)
+  
+random_color(alpha = 1)
+  return rgba(random(0,255), random(0,255), random(0,255), alpha)
+  
+clearfix()
+  &:before
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+  zoom: 1
+  
