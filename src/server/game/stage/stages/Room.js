@@ -105,8 +105,21 @@ Room.prototype.getMonster = function() {
     return this.monsterInstance;
 };
 
+/**
+ * this will update the current fight (if monster present)
+ */
 Room.prototype.updateMonster = function() {
-    battleLog.add('> monster turn');
+    // check if player is dead
+    // if yeah then go to 'game over' stage
+    
+    // check if monster is present
+    // if it's dead - remove it
+    // if it's alive - use random monster skill on player
+
+    if(!this.getMonster()){
+        return;
+    }
+
 };
 
 Room.prototype.getLayers = function() {

@@ -83,4 +83,13 @@ describe('Entity', () => {
             assert.equal(e.data.mp.current, 0);
         })
     })
+    describe('#isAlive', function() {
+        it('should check if hp neq 0', function() {
+            var e = new Entity({type: 'test', name: 'foo', hp: {current: 22, max: 30}, mp: 15});
+            assert.equal(e.data.hp.current, 22);
+            assert.equal(e.isAlive(), true);
+            e.removeHealth(2000);
+            assert.equal(e.isAlive(), false);
+        })
+    })
 });

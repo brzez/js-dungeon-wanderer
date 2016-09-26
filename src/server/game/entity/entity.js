@@ -58,6 +58,10 @@ Entity.prototype.removeMana = function(amount) {
     battleLog.add(`${this.data.name} used ${amount} mana`)
 };
 
+Entity.prototype.isAlive = function() {
+    return this.data.hp.current != 0;
+};
+
 Entity.prototype.useItem = function(type) {
     let items = this.data.items;
     console.log('using item', type);
