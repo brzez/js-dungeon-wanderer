@@ -144,6 +144,8 @@ Room.prototype.updateFight = function() {
 };
 
 Room.prototype.getLayers = function() {
+    battleLog.limit(5);
+
     let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();

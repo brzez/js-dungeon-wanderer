@@ -15,6 +15,12 @@ var Log = function() {
     this.serialize = function() {
         return log;
     }
+    this.limit = function(limit) {
+        //whatever
+        while(log.length > limit){
+            log.pop(); 
+        }
+    }
 }
 
 
