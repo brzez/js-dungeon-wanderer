@@ -42,7 +42,7 @@ Entity.prototype.addHealth = function(amount) {
 
 Entity.prototype.removeHealth = function(amount) {
     let hp = this.data.hp;
-    hp.current = Math.min(hp.max, hp.current - amount);
+    hp.current = Math.max(0, hp.current - amount);
     battleLog.add(`${this.data.name} got hit for ${amount}`)
 };
 

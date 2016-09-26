@@ -78,7 +78,7 @@ Room.prototype.saveState = function() {
     this.getState().battleLog = battleLog.serialize();
     this.getState().character = this.getPlayer().serialize();
     if(this.getMonster()){
-        this.getState().monster = this.getMonster().serialize();
+        this.getData().monster = this.getMonster().serialize();
     }
 };
 
