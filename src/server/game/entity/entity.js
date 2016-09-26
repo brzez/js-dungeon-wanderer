@@ -1,3 +1,7 @@
+import itemRegistry from './item/registry'
+import skillRegistry from './skill/registry'
+import battleLog from '../battleLog'
+
 
 var Entity = function(data) {
     this.data = {};
@@ -23,6 +27,84 @@ Entity.prototype.init = function(data) {
 
     this.data.items = data.items || [];
     this.data.skills = data.skills || [];
+};
+
+Entity.prototype.addItem = function(type) {
+    this.data.items.push(type);
+    return this;
+};
+
+Entity.prototype.addHealth = function(amount) {
+    let hp = this.data.hp;
+    hp.current = Math.min(hp.max, hp.current + amount);
+    battleLog.add(`${this.data.name} healed for ${amount}`)
+};
+
+Entity.prototype.removeHealth = function(amount) {
+    let hp = this.data.hp;
+    hp.current = Math.max(0, hp.current - amount);
+    battleLog.add(`${this.data.name} got hit for ${amount}`)
+};
+
+Entity.prototype.addMana = function(amount) {
+    let mp = this.data.mp;
+    mp.current = Math.min(mp.max, mp.current + amount);
+    battleLog.add(`${this.data.name} restored ${amount} mana`)
+};
+
+Entity.prototype.removeMana = function(amount) {
+    let mp = this.data.mp;
+    mp.current = Math.max(0, mp.current - amount);
+    battleLog.add(`${this.data.name} used ${amount} mana`)
+};
+
+Entity.prototype.isAlive = function() {
+    return this.data.hp.current != 0;
+};
+
+Entity.prototype.useItem = function(type) {
+    let items = this.data.items;
+    console.log('using item', type);
+    for(let i = 0;i < items.length; i++){
+        console.log(items[i], type);
+        if(items[i].type != type){
+            continue;
+        }
+
+        let item = itemRegistry.create(type);
+
+        battleLog.add(`${this.data.name} used item ${item.name}`)
+
+        item.use(this);
+        items.splice(i, 1);
+
+        return true;
+    }
+    return false;
+};
+
+Entity.prototype.useRandomSkill = function(target) {
+    var randomSkill = this.data.skills[Math.random() * this.data.skills.length | 0];
+    this.useSkill(randomSkill.type, target);
+};
+
+Entity.prototype.useSkill = function(type, target) {
+    let skills = this.data.skills;
+    console.log('using skill', type);
+    for(let i = 0;i < skills.length; i++){
+        if(skills[i].type != type){
+            continue;
+        }
+
+        let skill = skillRegistry.create(type);
+
+        battleLog.add(`${this.data.name} used skill ${skill.name}`)
+        skill.use(this, target);
+
+
+        return true;
+    }
+    return false;
 };
 
 Entity.prototype.getData = function() {

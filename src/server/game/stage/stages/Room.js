@@ -5,6 +5,7 @@ import View from '../../view'
 import {DoorInputProcessor, ItemInputProcessor, FightInputProcessor} from '../../input/room.js'
 
 import entityRegistry from '../../entity/registry'
+import battleLog from '../../battleLog'
 
 var Room = function(game) {
     Stage.apply(this, [game]);
@@ -37,6 +38,7 @@ Room.prototype.__proto__ = Stage.prototype;
  */
 
 Room.prototype.init = function() {
+    battleLog.add(this.getState().battleLog || [])
     this.getState().stage.data = {
         type: 'ugly room',
         doors: [
@@ -45,8 +47,8 @@ Room.prototype.init = function() {
             {type: 'wooden'},
             {type: 'golden'},
         ],
-        item: {type: 'banana'},
-        monster: {type: 'potato' /* ... more data */}
+        item: {type: 'Health Potion'},
+        monster: {type: 'Rat'}
     };
 };
 
@@ -68,26 +70,111 @@ Room.prototype.resolveInputProcessor = function() {
     return new DoorInputProcessor(this);
 };
 
+Room.prototype.onFinish = function() {
+    this.saveState()
+};
+
+Room.prototype.saveState = function() {
+    this.getState().battleLog = battleLog.serialize();
+    this.getState().character = this.getPlayer().serialize();
+    this.getData().monster = null;
+    if(this.getMonster()){
+        let monster = this.getMonster();
+        this.getData().monster = monster.serialize();
+    }
+    if(!this.getPlayer().isAlive()){
+        return this.setStage('game_over');
+    }
+};
+
 Room.prototype.getPlayer = function() {
-    var entity = this.getState().character;
-    var {type} = entity;
-    return entityRegistry.create(type, entity);
+    if(!this.playerInstance){
+        var data = this.getState().character;
+        var {type} = data;
+        this.playerInstance = entityRegistry.create(type, data);
+        return this.getPlayer();
+    }   
+    return this.playerInstance;
+};
+
+Room.prototype.getMonster = function() {
+    if(!this.monsterInstance){
+        var data = this.getData();
+        if(!data.monster){
+            return null;
+        }
+        var data = data.monster;
+        var {type} = data;
+        return this.monsterInstance = entityRegistry.create(type, data);
+    }
+    return this.monsterInstance;
+};
+
+Room.prototype.removeMonster = function() {
+    this.getData().monster = this.monsterInstance = null;
+};
+
+/**
+ * this will update the current fight (if monster present)
+ */
+Room.prototype.updateFight = function() {
+    let player = this.getPlayer();
+    // check if player is dead
+    // if yeah then go to 'game over' stage
+
+    // check if monster is present
+    // if it's dead - remove it
+    // if it's alive - use random monster skill on player
+
+    if(!this.getMonster()){
+        return;
+    }
+    let monster = this.getMonster();
+    if(!monster.isAlive()){
+        battleLog.add(`${monster.data.name} died`);
+        this.removeMonster();
+        return;
+    }
+
+    monster.useRandomSkill(player);
+
+    if(!player.isAlive()){
+        battleLog.add(`${player.data.name} died`);
+    }
 };
 
 Room.prototype.getLayers = function() {
+    battleLog.limit(5);
+
     let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();
+    let monster    = this.getMonster() ? this.getMonster().serialize() : null;
+    let log        = battleLog.serialize();
 
-    let data = { character, stage_data, controls };
+    let data = { character, monster, stage_data, controls, log };
+
+    let ui_name = this.getPlayer().isAlive() ? 'room/ui' : 'room/ui_dead';
 
     return new Layers({
         view_layer: new View('room/view', data),
-        ui_layer: new View('room/ui', data)
+        ui_layer: new View(ui_name, data)
     })
 };
 
 Room.prototype.processInput = function(input) {
+    /* 
+        handle item use
+        this can be done on any 'layer', so it needs to be handled here
+    */
+
+    if(input.use_item){
+        var itemType = input.use_item;
+        this.getPlayer().useItem(itemType);
+        return this.updateFight();
+    }
+
+
     return this.resolveInputProcessor().processInput(input);
 };
 

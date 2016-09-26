@@ -40,9 +40,7 @@ ItemInputProcessor.prototype.getControls = function() {
 ItemInputProcessor.prototype.processInput = function(input) {
     if(input.action === 'pick_up'){
         let item = this.getState().stage.data.item;
-        
-        this.getState().character.entity.items.push(item);
-
+        this.getPlayer().addItem(item);
         delete this.getState().stage.data.item;
     }
 };
@@ -60,6 +58,12 @@ FightInputProcessor.prototype.getControls = function() {
 };
 
 FightInputProcessor.prototype.processInput = function(input) {
+    if(input.use_skill){
+        let type = input.use_skill;
+        this.getPlayer().useSkill(type, this.getMonster());
+
+        this.getStage().updateFight();
+    }
 };
 
 FightInputProcessor.prototype.__proto__ = InputProcessor.prototype;

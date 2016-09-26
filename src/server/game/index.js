@@ -37,15 +37,23 @@ export default function(options){
 
         let renderResponse = function() {
             let layers = game.getLayers();
+            
+            onFinish(); // before response end
+
             if(req.xhr){
                 return res.send(layers.toJson());
             }
+
 
             // render all layers
             layers.render(app).then(function(result) {
                 res.render('index', result);
             });
         };
+
+        let onFinish = function() {
+            game.onFinish()
+        }
 
         router.get('/', function(req, res) {
             renderResponse();

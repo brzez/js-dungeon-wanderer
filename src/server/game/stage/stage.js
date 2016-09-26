@@ -16,6 +16,10 @@ Stage.prototype.setStage = function(stage, data) {
     return this.game.setStage(stage, data);
 };
 
+Stage.prototype.onFinish = function() {
+    
+};
+
 Stage.prototype.init = function() {
     
 };

@@ -12,4 +12,11 @@ InputProcessor.prototype.getControls = function() {
 };
 InputProcessor.prototype.processInput = function(input) {};
 
+InputProcessor.prototype.getPlayer = function() {
+    return this.getStage().getPlayer();
+};
+InputProcessor.prototype.getMonster = function() {
+    return this.getStage().getMonster();
+};
+
 export default InputProcessor;
