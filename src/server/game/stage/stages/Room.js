@@ -105,6 +105,10 @@ Room.prototype.getMonster = function() {
     return this.monsterInstance;
 };
 
+Room.prototype.updateMonster = function() {
+    battleLog.add('> monster turn');
+};
+
 Room.prototype.getLayers = function() {
     let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
@@ -129,6 +133,7 @@ Room.prototype.processInput = function(input) {
     if(input.use_item){
         var itemType = input.use_item;
         this.getPlayer().useItem(itemType);
+        return this.updateMonster();
     }
 
 

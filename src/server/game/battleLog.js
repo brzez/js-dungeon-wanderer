@@ -3,8 +3,11 @@ var Log = function() {
     this.add = function(data) {
         if(Array.isArray(data)){
             data.forEach((line)=>{
-                this.add(line);
+                if(typeof line == "object"){
+                    this.add(line.text);
+                }else this.add(line)
             })
+            return;
         }
         log.push({text: data});
         return this;

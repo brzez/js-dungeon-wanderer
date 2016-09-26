@@ -55,7 +55,6 @@ CreateACharacter.prototype.processInput = function(input) {
         var character = entityRegistry.create(data.type);
         state.character = character.serialize()
         state.character.name = data.name;
-        console.log('character created -> setStage to something else')
         this.setStage('room');
     }
 };

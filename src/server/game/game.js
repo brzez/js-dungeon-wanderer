@@ -3,6 +3,7 @@ import Layers from './layers'
 import StageFactory from './stage/factory'
 
 import register_stages from './register_stages'
+import entityRegistry from './entity/registry'
 
 
 /*
@@ -51,6 +52,15 @@ Game.prototype.setStage = function(name, data = {}) {
 };
 
 Game.prototype.init = function(state) {
+    if(this.getStage() !== null){
+        return;
+    }
+    // mock player, skip create_a_character
+    state.character = entityRegistry.create('Wizard').serialize();
+    console.log(state)
+    return this.setStage('room');
+    // 
+
     // initial stage
     if(this.getStage() === null){
         this.setStage('create_a_character');
