@@ -1,4 +1,7 @@
-import {chance, pickRandom, arrayShuffle} from '../../../randomUtil.js'
+import itemRegistry from '../../../entity/item/registry'
+import entityRegistry from '../../../entity/registry'
+
+import {chance, pickRandom, pickRandomKey, arrayShuffle} from '../../../randomUtil.js'
 
 var roomTypes = [
     {type: 'festive'},
@@ -13,7 +16,14 @@ var doorTypes = [
 ]
 
 
-var RoomGenerator = function() {}
+var RoomGenerator = function() {
+    this.config = {
+        door_chance: '25%',
+        item_chance: '16%',
+        monster_chance: '40%'
+    }
+}
+
 RoomGenerator.prototype.generate = function() {
     let room = {
         type: pickRandom(roomTypes)
@@ -24,14 +34,23 @@ RoomGenerator.prototype.generate = function() {
 
     for(let i = 0; i < 2; i++){
         // 20% chance for another door
-        doors.push(chance('30%') ? pickRandom(doorTypes) : {});
+        doors.push(chance(this.config.door_chance) ? pickRandom(doorTypes) : {});
     }
 
     room.doors = arrayShuffle(doors);
 
+    if(this.config.item_chance){
+        let item = itemRegistry.create(pickRandomKey(itemRegistry.getAll())).serialize();
+        room.item = item;
+    }
 
+    if(this.config.monster_chance){
+        let monster = entityRegistry.create(pickRandomKey(entityRegistry.getAll())).serialize();
+        room.monster = monster;
+    }
     return room;
 
+    // structure:
     // return {
     //     type: 'ugly room',
     //     doors: [
