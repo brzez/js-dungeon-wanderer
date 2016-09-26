@@ -16,5 +16,9 @@ Factory.prototype.create = function(name, data = {}) {
     return resolver(data);
 };
 
+Factory.prototype.getAll = function() {
+    return this.all;
+};
+
 
 export default Factory;

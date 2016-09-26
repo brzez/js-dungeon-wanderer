@@ -90,7 +90,6 @@ Entity.prototype.useRandomSkill = function(target) {
 
 Entity.prototype.useSkill = function(type, target) {
     let skills = this.data.skills;
-    console.log('using skill', type);
     for(let i = 0;i < skills.length; i++){
         if(skills[i].type != type){
             continue;
