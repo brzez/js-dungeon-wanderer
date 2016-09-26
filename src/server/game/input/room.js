@@ -62,7 +62,7 @@ FightInputProcessor.prototype.processInput = function(input) {
         let type = input.use_skill;
         this.getPlayer().useSkill(type, this.getMonster());
 
-        this.getStage().updateMonster();
+        this.getStage().updateFight();
     }
 };
 

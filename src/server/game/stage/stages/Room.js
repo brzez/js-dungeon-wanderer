@@ -114,10 +114,14 @@ Room.prototype.removeMonster = function() {
 /**
  * this will update the current fight (if monster present)
  */
-Room.prototype.updateMonster = function() {
+Room.prototype.updateFight = function() {
     // check if player is dead
     // if yeah then go to 'game over' stage
     
+    if(!this.getPlayer().isAlive()){
+        return this.setStage('game_over');
+    }
+
     // check if monster is present
     // if it's dead - remove it
     // if it's alive - use random monster skill on player
@@ -157,7 +161,7 @@ Room.prototype.processInput = function(input) {
     if(input.use_item){
         var itemType = input.use_item;
         this.getPlayer().useItem(itemType);
-        return this.updateMonster();
+        return this.updateFight();
     }
 
 
