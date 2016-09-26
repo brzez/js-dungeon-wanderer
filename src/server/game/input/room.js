@@ -24,6 +24,7 @@ DoorInputProcessor.prototype.processInput = function(input) {
     doors.forEach((door)=>{
         if(door.value == input.door){
             console.log(`opening door #${input.door}`)
+            this.getStage().setStage('room');
         }
     })
 };
