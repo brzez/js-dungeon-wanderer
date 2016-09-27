@@ -1,0 +1,17 @@
+
+.overlay
+  background random_color(.3)
+  position absolute
+  top 0
+  bottom 0
+  left 0
+  right 0
+  .thing
+    background random_color(1)
+    width 64px
+    height @width
+    position absolute
+    bottom 0
+    left 50%
+    margin-left -(@width / 2)    
+    transform scale(2) // wont work in ie8
