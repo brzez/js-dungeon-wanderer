@@ -16,30 +16,36 @@
     <div class="clearfix"></div>
     <div class="actions">
         <div class="sr">Actions</div>
-        <form method="post">
         {{#controls.monster}}
             {{@character.skills}}
+            <form method="post">
                 <button name="use_skill" value="{{type}}">{{name}}</button>
+            </form>
             {{@}}
         {{/}}
         {{#controls.doors}}
             {{@controls.doors}}
+            <form method="post">
                 <button name="door" value="{{value}}">Open {{door.type}} door</button>
+            </form>
             {{@}}
         {{/}}
         {{#controls.item}}
-            <button name="action" value="pick_up">Pick up {{controls.item.type}}</button>
+            <form method="post">
+                <button name="action" value="pick_up">Pick up {{controls.item.type}}</button>
+            </form>
         {{/}}
-        </form>
     </div>
 
     <div class="inv">
         <div class="sr">Inventory: </div>
         <form method="post">
             {{@inventory}}
-            <button name="use_item" value="{{id}}">
-                <span class="item {{cssClass}}"></span><span class="sr">{{name}}</span>
-            </button>
+            <form method="post">
+                <button name="use_item" value="{{id}}">
+                    <span class="item {{cssClass}}"></span><span class="sr">{{name}}</span>
+                </button>
+            </form>
             {{@}}
         </form>
     </div>
