@@ -28,6 +28,7 @@ Entity.prototype.init = function(data) {
     this.data.name = data.name || data.type;
     this.data.hp   = normalizeStat(data.hp);
     this.data.mp   = normalizeStat(data.mp);
+    this.data.is_undead = data.is_undead || false;
 
     this.data.skills = (data.skills || [])
     .map(normalizeType)
@@ -40,6 +41,10 @@ Entity.prototype.init = function(data) {
     .map((item) => {
         return itemRegistry.create(item.type).serialize();
     });
+};
+
+Entity.prototype.isUndead = function() {
+    return this.data.is_undead;
 };
 
 Entity.prototype.addItem = function(item) {

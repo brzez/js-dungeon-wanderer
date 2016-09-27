@@ -15,7 +15,33 @@ var monsters = {
             type: 'Undead Priest',
             hp: 11,
             mp: 15,
+            is_undead: true,
             skills: ['Attack','Heal']
+        }, data))
+    },
+    'Spooky Ghost': (data) => {
+        return new Entity(Object.assign({
+            type: 'Spooky Ghost',
+            hp: 15,
+            mp: 0,
+            is_undead: true,
+            skills: ['Attack']
+        }, data))
+    },
+    'Slime': (data) => {
+        return new Entity(Object.assign({
+            type: 'Slime',
+            hp: 10,
+            mp: 0,
+            skills: ['Attack', 'Thunderbolt']
+        }, data))
+    },
+    'Bat': (data) => {
+        return new Entity(Object.assign({
+            type: 'Bat',
+            hp: 10,
+            mp: 0,
+            skills: ['Attack']
         }, data))
     },
 }
