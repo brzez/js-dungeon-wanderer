@@ -3,3 +3,4 @@ node_modules/
 /server.js
 /public/client.js
 /public/index.css
+/public/*.png

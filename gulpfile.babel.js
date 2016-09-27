@@ -7,6 +7,9 @@ let rollup = require('rollup');
 let stylus = require('gulp-stylus');
 let cleanCSS = require('gulp-clean-css');
 
+const imagemin = require('gulp-imagemin');
+
+
 let runRollup = function(config) {
     return rollup.rollup(config).then(function(bundle) {
         bundle.write({
@@ -41,10 +44,20 @@ gulp.task('nodemon', function() {
     nodemon({
         script: './server.js'
     })
-})
+});
 
-gulp.task('dev', ['build', 'stylus:watch', 'js:watch', 'nodemon'])
+gulp.task('imagemin:watch', () =>{
+    gulp.watch('images/**/*', ['imagemin']);
+});
 
-gulp.task('build', ['stylus:build', 'js:build']);
+gulp.task('imagemin', () =>
+    gulp.src('images/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('public'))
+);
+
+gulp.task('dev', ['build', 'stylus:watch', 'imagemin:watch', 'js:watch', 'nodemon'])
+
+gulp.task('build', ['stylus:build', 'js:build', 'imagemin']);
 
 gulp.task('default', ['js:build', 'js:watch'])
