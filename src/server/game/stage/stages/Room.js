@@ -144,6 +144,12 @@ Room.prototype.getLayers = function() {
     let monster    = this.getMonster() ? this.getMonster().serialize() : null;
     let log        = battleLog.serialize();
 
+    let inventory = this.getPlayer().getInventory();
+
+
+
+    console.log('inventory', inventory)
+
     let data = { character, monster, stage_data, controls, log };
 
     let ui_name = this.getPlayer().isAlive() ? 'room/ui' : 'room/ui_dead';
@@ -162,6 +168,7 @@ Room.prototype.processInput = function(input) {
 
     if(input.use_item){
         var itemType = input.use_item;
+        console.log('use item: ', input)
         this.getPlayer().useItem(itemType);
         return this.updateFight();
     }

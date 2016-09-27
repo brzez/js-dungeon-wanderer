@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import {assert, expect} from 'chai';
 
 import Entity from '../../../../src/server/game/entity/entity.js'
 
@@ -98,6 +98,36 @@ describe('Entity', () => {
             assert.equal(e.isManaAvailable(10), true);
             e.removeMana(10);
             assert.equal(e.isManaAvailable(10), false);
+        })
+    })
+    describe('#useItemById', function() {
+        it('should get items with generated ID', function() {
+            var e = new Entity({
+                type: 'test', name: 'foo', hp: 10, mp: 15,
+                items: ['Mana Potion', 'Health Potion']
+            });
+
+            assert.isTrue(e.useItemById(1));
+            expect(e.data.items).to.not.include({type: 'Mana Potion'})
+        })
+    })
+    describe('#getInventory', function() {
+        it('should get items with generated ID', function() {
+            var e = new Entity({
+                type: 'test', name: 'foo', hp: 10, mp: 15,
+                items: ['Mana Potion', 'Health Potion']
+            });
+
+
+            let inv = e.getInventory();
+
+            assert.lengthOf(inv, 2);
+            let id = 0;
+            inv.forEach((item)=>{
+                expect(item).to.deep.include({
+                    id: ++id
+                })
+            })
         })
     })
 });

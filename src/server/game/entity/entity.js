@@ -84,6 +84,25 @@ Entity.prototype.isAlive = function() {
     return this.data.hp.current != 0;
 };
 
+Entity.prototype.useItemById = function(id) {
+    let inv = this.getInventory();
+
+    // doesnt actually matter if the id matches
+    // we just care about the item type <=> id
+    // yeah i know its stupid.
+
+    for(let i = 0; i < inv.length; i++){
+        let item = inv[i];
+        if(item.id != id){
+            continue;
+        }
+
+        return this.useItem(item.type);
+    }
+
+    return false;
+};
+
 Entity.prototype.useItem = function(type) {
     let items = this.data.items;
     console.log('using item', type);
@@ -115,6 +134,17 @@ Entity.prototype.useRandomSkill = function(target) {
         return this.useRandomSkill(target);
     }
     this.useSkill(randomSkill.type, target);
+};
+
+
+Entity.prototype.getInventory = function() {
+    let items = this.data.items;
+    let id = 0;
+
+    return items.map((item) => {
+        item.id = ++id;
+        return item;
+    })
 };
 
 Entity.prototype.useSkill = function(type, target) {
