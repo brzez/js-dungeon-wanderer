@@ -3,6 +3,10 @@ import renderLayers from './client/layers'
 
 import {serializeForm} from './client/form'
 
+String.prototype.includes = function(v) {
+    return ~ this.indexOf(v)
+}
+
 var toArray = function(o) {
     return [].slice.call(o)
 }
