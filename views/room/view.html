@@ -1,19 +1,18 @@
+
+<!-- .room>.wall.left+.wall.front(>.spacer*3>.door)+.wall.right -->
+
 <div class="room">
-    <div class="wall left">left</div>
+    <div class="wall left"></div>
     <div class="wall front">
-        {{@ stage_data.doors}}
         <div class="spacer">
-            {{# type}}
-            <div class="door">
-                door type: {{type}}
-            </div>
-            {{/}}
+            <div class="door">door</div>
         </div>
-        {{@}}
+        <div class="spacer">
+            <div class="door">door</div>
+        </div>
+        <div class="spacer">
+            <div class="door">door</div>
+        </div>
     </div>
-    <div class="wall right">right</div>
-    <div class="clearfix"></div>
-    <div class="monster_wrapper">
-        <div class="monster">rawr</div>
-    </div>
+    <div class="wall right"></div>
 </div>
