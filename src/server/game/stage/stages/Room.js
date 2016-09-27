@@ -146,11 +146,7 @@ Room.prototype.getLayers = function() {
 
     let inventory = this.getPlayer().getInventory();
 
-
-
-    console.log('inventory', inventory)
-
-    let data = { character, monster, stage_data, controls, log };
+    let data = { character, monster, stage_data, controls, log, inventory };
 
     let ui_name = this.getPlayer().isAlive() ? 'room/ui' : 'room/ui_dead';
 
@@ -167,9 +163,9 @@ Room.prototype.processInput = function(input) {
     */
 
     if(input.use_item){
-        var itemType = input.use_item;
+        var itemId = input.use_item;
         console.log('use item: ', input)
-        this.getPlayer().useItem(itemType);
+        this.getPlayer().useItemById(itemId);
         return this.updateFight();
     }
 
