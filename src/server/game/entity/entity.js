@@ -94,6 +94,13 @@ Entity.prototype.useItem = function(type) {
 
 Entity.prototype.useRandomSkill = function(target) {
     var randomSkill = this.data.skills[Math.random() * this.data.skills.length | 0];
+    let skill = skillRegistry.create(randomSkill.type);
+
+    if(!skill.canUse(this)){
+        // not enough mana or something. Just try another time.
+        // might result in stack overflow it no usable skills
+        return this.useRandomSkill(target);
+    }
     this.useSkill(randomSkill.type, target);
 };
 

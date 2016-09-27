@@ -5,7 +5,7 @@ var Wizard = function(data) {
     Entity.call(this, Object.assign({
         type: 'Wizard',
         hp: 10,
-        mp: 15,
+        mp: 5,
         skills: [{type: 'Attack'},{type: 'Heal'}]
     }, data));
 }
