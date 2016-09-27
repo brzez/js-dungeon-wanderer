@@ -1,19 +1,28 @@
+
+<div class="sr">
+    You are in *room type* room. <br>
+    You see a *door type* door<br>
+    You see a *door type* door<br>
+    You see a *door type* door<br>
+    A *monster name* is blocking your way <br>
+</div>
+
 <div class="room">
-    <div class="wall left">left</div>
+    <div class="wall left"></div>
     <div class="wall front">
-        {{@ stage_data.doors}}
         <div class="spacer">
-            {{# type}}
-            <div class="door">
-                door type: {{type}}
-            </div>
-            {{/}}
+            <div class="door wooden"></div>
         </div>
-        {{@}}
+        <div class="spacer">
+            <div class="door golden"></div>
+        </div>
+        <div class="spacer">
+            <div class="door old"></div>
+        </div>
     </div>
-    <div class="wall right">right</div>
-    <div class="clearfix"></div>
-    <div class="monster_wrapper">
-        <div class="monster">rawr</div>
-    </div>
+    <div class="wall right"></div>
+</div>
+
+<div class="overlay">
+    <div class="thing">thing</div>
 </div>
