@@ -23,7 +23,7 @@ export var serverConfig = {
 export var clientConfig = {
   entry: 'src/client.js',
   plugins: [
-    babel(babelrc()), nodeResolve(), // uglify()
+    babel(babelrc()), nodeResolve(), uglify()
   ],
   external: external,
   dest: 'public/client.js',

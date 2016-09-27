@@ -5,6 +5,7 @@ import {clientConfig, serverConfig} from './rollup.config.js'
 
 let rollup = require('rollup');
 let stylus = require('gulp-stylus');
+let cleanCSS = require('gulp-clean-css');
 
 let runRollup = function(config) {
     return rollup.rollup(config).then(function(bundle) {
@@ -18,6 +19,7 @@ let runRollup = function(config) {
 gulp.task('stylus:build', function () {
   return gulp.src('./stylus/index.styl')
     .pipe(stylus())
+    .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('./public/'));
 });
 
