@@ -7,7 +7,7 @@ var monsters = {
             type: 'Rat',
             hp: 7,
             mp: 0,
-            skills: [{type: 'Attack'}]
+            skills: ['Attack']
         }, data))
     },
     'Undead Priest': (data) => {
@@ -15,7 +15,7 @@ var monsters = {
             type: 'Undead Priest',
             hp: 11,
             mp: 15,
-            skills: [{type: 'Heal'}]
+            skills: ['Attack','Heal']
         }, data))
     },
 }

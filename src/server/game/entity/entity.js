@@ -20,16 +20,24 @@ Entity.prototype.init = function(data) {
         throw new Error(`Entity type is required`);
     }
 
+    var normalizeType = (thing) => {
+        return typeof thing === "string" ? {type: thing} : thing;
+    }
+
     this.data.type = data.type;
     this.data.name = data.name || data.type;
     this.data.hp   = normalizeStat(data.hp);
     this.data.mp   = normalizeStat(data.mp);
 
-    this.data.skills = (data.skills || []).map((skill) => {
+    this.data.skills = (data.skills || [])
+    .map(normalizeType)
+    .map((skill) => {
         return skillRegistry.create(skill.type).serialize()
     });
 
-    this.data.items = (data.items || []).map((item) => {
+    this.data.items = (data.items || [])
+    .map(normalizeType)
+    .map((item) => {
         return itemRegistry.create(item.type).serialize();
     });
 };

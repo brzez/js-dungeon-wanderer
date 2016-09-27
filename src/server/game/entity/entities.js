@@ -6,7 +6,7 @@ var Wizard = function(data) {
         type: 'Wizard',
         hp: 10,
         mp: 5,
-        skills: [{type: 'Attack'},{type: 'Heal'}]
+        skills: ['Attack','Heal']
     }, data));
 }
 Wizard.prototype.__proto__ = Entity.prototype;
@@ -16,7 +16,7 @@ var Rogue = function(data) {
         type: 'Rogue',
         hp: 20,
         mp: 10,
-        skills: [{type: 'Attack'}]
+        skills: ['Attack','Heal']
     }, data));
 }
 Rogue.prototype.__proto__ = Entity.prototype;
@@ -27,7 +27,7 @@ var Paladin = function(data) {
         type: 'Paladin',
         hp: 40,
         mp: 10,
-        skills: [{type: 'Attack'}]
+        skills: ['Attack','Heal']
     }, data));
 }
 Paladin.prototype.__proto__ = Entity.prototype;
