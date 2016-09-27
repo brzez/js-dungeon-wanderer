@@ -13,7 +13,7 @@ var roomTypes = [
 var doorTypes = [
     {type: 'wooden'},
     {type: 'golden'},
-    {type: 'black'}
+    {type: 'old'}
 ]
 
 
