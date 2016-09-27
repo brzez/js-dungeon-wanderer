@@ -4,3 +4,4 @@ node_modules/
 /public/client.js
 /public/index.css
 /public/*.png
+*.blend1
