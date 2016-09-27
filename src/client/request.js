@@ -12,10 +12,14 @@ var request = function(method, url, callback, options) {
         xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
     }
 
-    xhr.responseType = options.responseType || 'json';
+    var responseType = options.responseType || 'json';
     xhr.onreadystatechange = function() {
         if(xhr.readyState !== XMLHttpRequest.DONE) return;
-        callback(xhr.response, xhr);
+        let response = xhr.response;
+        if(responseType === 'json'){
+            response = JSON.parse(xhr.response);
+        }
+        callback(response, xhr);
     }
     xhr.send(options.data);
 }
