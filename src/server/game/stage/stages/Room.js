@@ -42,8 +42,6 @@ Room.prototype.init = function() {
     battleLog.add(this.getState().battleLog || []);
     roomGenerator.generate(this.getData());
     this.getState().stage.data = roomGenerator.generate();
-
-    console.log(this.getState().character.items)
 };
 
 /*
@@ -146,7 +144,9 @@ Room.prototype.getLayers = function() {
     let monster    = this.getMonster() ? this.getMonster().serialize() : null;
     let log        = battleLog.serialize();
 
-    let data = { character, monster, stage_data, controls, log };
+    let inventory = this.getPlayer().getInventory();
+
+    let data = { character, monster, stage_data, controls, log, inventory };
 
     let ui_name = this.getPlayer().isAlive() ? 'room/ui' : 'room/ui_dead';
 
@@ -163,8 +163,9 @@ Room.prototype.processInput = function(input) {
     */
 
     if(input.use_item){
-        var itemType = input.use_item;
-        this.getPlayer().useItem(itemType);
+        var itemId = input.use_item;
+        console.log('use item: ', input)
+        this.getPlayer().useItemById(itemId);
         return this.updateFight();
     }
 

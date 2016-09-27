@@ -4,9 +4,9 @@ import Entity from './entity'
 var Wizard = function(data) {
     Entity.call(this, Object.assign({
         type: 'Wizard',
-        hp: 10,
-        mp: 15,
-        skills: [{type: 'Attack'}]
+        hp: 15,
+        mp: 25,
+        skills: ['Attack','Heal', 'Thunderbolt']
     }, data));
 }
 Wizard.prototype.__proto__ = Entity.prototype;
@@ -15,8 +15,8 @@ var Rogue = function(data) {
     Entity.call(this, Object.assign({
         type: 'Rogue',
         hp: 20,
-        mp: 10,
-        skills: [{type: 'Attack'}]
+        mp: 20,
+        skills: ['Attack','Backstab', 'Slash']
     }, data));
 }
 Rogue.prototype.__proto__ = Entity.prototype;
@@ -25,9 +25,9 @@ var Paladin = function(data) {
     Entity.call(this, Object.assign({
         name: data.name,
         type: 'Paladin',
-        hp: 40,
-        mp: 10,
-        skills: [{type: 'Attack'}]
+        hp: 27,
+        mp: 15,
+        skills: ['Attack','Heal', 'Banish Undead']
     }, data));
 }
 Paladin.prototype.__proto__ = Entity.prototype;

@@ -1,4 +1,5 @@
 import InputProcessor from './processor'
+import battleLog from '../battleLog'
 
 export var DoorInputProcessor = function(stage) {
     InputProcessor.call(this, stage);
@@ -61,9 +62,12 @@ FightInputProcessor.prototype.getControls = function() {
 FightInputProcessor.prototype.processInput = function(input) {
     if(input.use_skill){
         let type = input.use_skill;
-        this.getPlayer().useSkill(type, this.getMonster());
-
-        this.getStage().updateFight();
+        try{
+            this.getPlayer().useSkill(type, this.getMonster());
+            this.getStage().updateFight();
+        }catch(e){
+            battleLog.add(e.message)
+        }
     }
 };
 

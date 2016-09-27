@@ -19,7 +19,7 @@
         <form method="post">
         {{#controls.monster}}
             {{@character.skills}}
-                <button name="use_skill" value="{{type}}">{{type}}</button>
+                <button name="use_skill" value="{{type}}">{{name}}</button>
             {{@}}
         {{/}}
         {{#controls.doors}}
@@ -36,8 +36,8 @@
     <div class="inv">
         <div class="sr">Inventory: </div>
         <form method="post">
-            {{@character.items}}
-            <button name="use_item" value="{{type}}">
+            {{@inventory}}
+            <button name="use_item" value="{{id}}">
                 <span class="item {{cssClass}}"></span><span class="sr">{{name}}</span>
             </button>
             {{@}}

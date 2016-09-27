@@ -57,13 +57,12 @@ Game.prototype.init = function(state) {
         return;
     }
     // mock player, skip create_a_character
-    let w = entityRegistry.create('Wizard');
+    let w = entityRegistry.create('Paladin');
     for(let i = 3; i-->0;){
         w.addItem(itemRegistry.create('Health Potion').serialize())
         w.addItem(itemRegistry.create('Mana Potion').serialize())
     }
     state.character = w.serialize();
-    console.log(state)
     return this.setStage('room');
     // 
 

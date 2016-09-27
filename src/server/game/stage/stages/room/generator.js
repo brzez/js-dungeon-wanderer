@@ -2,6 +2,7 @@ import itemRegistry from '../../../entity/item/registry'
 import entityRegistry from '../../../entity/registry'
 
 import {chance, pickRandom, pickRandomKey, arrayShuffle} from '../../../randomUtil.js'
+import {names as monsterNames} from '../../../entity/monsters'
 
 var roomTypes = [
     {type: 'festive'},
@@ -45,7 +46,8 @@ RoomGenerator.prototype.generate = function() {
     }
 
     if(this.config.monster_chance){
-        let monster = entityRegistry.create(pickRandomKey(entityRegistry.getAll())).serialize();
+        let monsterName = pickRandom(monsterNames);
+        let monster = entityRegistry.create(monsterName).serialize();
         room.monster = monster;
     }
     return room;

@@ -20,18 +20,40 @@ Entity.prototype.init = function(data) {
         throw new Error(`Entity type is required`);
     }
 
+    var normalizeType = (thing) => {
+        return typeof thing === "string" ? {type: thing} : thing;
+    }
+
     this.data.type = data.type;
     this.data.name = data.name || data.type;
     this.data.hp   = normalizeStat(data.hp);
     this.data.mp   = normalizeStat(data.mp);
+    this.data.is_undead = data.is_undead || false;
 
-    this.data.items = data.items || [];
-    this.data.skills = data.skills || [];
+    this.data.skills = (data.skills || [])
+    .map(normalizeType)
+    .map((skill) => {
+        return skillRegistry.create(skill.type).serialize()
+    });
+
+    this.data.items = (data.items || [])
+    .map(normalizeType)
+    .map((item) => {
+        return itemRegistry.create(item.type).serialize();
+    });
 };
 
-Entity.prototype.addItem = function(type) {
-    this.data.items.push(type);
+Entity.prototype.isUndead = function() {
+    return this.data.is_undead;
+};
+
+Entity.prototype.addItem = function(item) {
+    this.data.items.push(item);
     return this;
+};
+
+Entity.prototype.isManaAvailable = function(amount) {
+    return this.data.mp.current >= amount;
 };
 
 Entity.prototype.addHealth = function(amount) {
@@ -62,6 +84,25 @@ Entity.prototype.isAlive = function() {
     return this.data.hp.current != 0;
 };
 
+Entity.prototype.useItemById = function(id) {
+    let inv = this.getInventory();
+
+    // doesnt actually matter if the id matches
+    // we just care about the item type <=> id
+    // yeah i know its stupid.
+
+    for(let i = 0; i < inv.length; i++){
+        let item = inv[i];
+        if(item.id != id){
+            continue;
+        }
+
+        return this.useItem(item.type);
+    }
+
+    return false;
+};
+
 Entity.prototype.useItem = function(type) {
     let items = this.data.items;
     console.log('using item', type);
@@ -85,7 +126,25 @@ Entity.prototype.useItem = function(type) {
 
 Entity.prototype.useRandomSkill = function(target) {
     var randomSkill = this.data.skills[Math.random() * this.data.skills.length | 0];
+    let skill = skillRegistry.create(randomSkill.type);
+
+    if(!skill.canUse(this)){
+        // not enough mana or something. Just try another time.
+        // might result in stack overflow it no usable skills
+        return this.useRandomSkill(target);
+    }
     this.useSkill(randomSkill.type, target);
+};
+
+
+Entity.prototype.getInventory = function() {
+    let items = this.data.items;
+    let id = 0;
+
+    return items.map((item) => {
+        item.id = ++id;
+        return item;
+    })
 };
 
 Entity.prototype.useSkill = function(type, target) {
@@ -113,7 +172,7 @@ Entity.prototype.getData = function() {
 Entity.prototype.serialize = function() {
     var {type, hp, mp, items, skills, name} = this.data;
     return {
-        type, hp, mp, items, skills, name
+        type, hp, mp, name, items, skills
     };
 };
 
