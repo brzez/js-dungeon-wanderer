@@ -7,11 +7,12 @@
   left 0
   right 0
   .thing
-    background random_color(1)
     width 64px
     height @width
     position absolute
     bottom 0
     left 50%
     margin-left -(@width / 2)    
-    transform scale(2) // wont work in ie8
+    background url("sprite.png")
+  
+    background-position-y -(32 + 64)px
