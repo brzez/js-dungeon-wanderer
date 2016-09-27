@@ -92,4 +92,12 @@ describe('Entity', () => {
             assert.equal(e.isAlive(), false);
         })
     })
+    describe('#isManaAvailable', function() {
+        it('should check if mana >= amount', function() {
+            var e = new Entity({type: 'test', name: 'foo', hp: {current: 22, max: 30}, mp: 15});
+            assert.equal(e.isManaAvailable(10), true);
+            e.removeMana(10);
+            assert.equal(e.isManaAvailable(10), false);
+        })
+    })
 });

@@ -6,7 +6,7 @@ var Wizard = function(data) {
         type: 'Wizard',
         hp: 10,
         mp: 15,
-        skills: [{type: 'Attack'}]
+        skills: [{type: 'Attack'},{type: 'Heal'}]
     }, data));
 }
 Wizard.prototype.__proto__ = Entity.prototype;

@@ -25,13 +25,22 @@ Entity.prototype.init = function(data) {
     this.data.hp   = normalizeStat(data.hp);
     this.data.mp   = normalizeStat(data.mp);
 
-    this.data.items = data.items || [];
-    this.data.skills = data.skills || [];
+    this.data.skills = (data.skills || []).map((skill) => {
+        return skillRegistry.create(skill.type).serialize()
+    });
+
+    this.data.items = (data.items || []).map((item) => {
+        return itemRegistry.create(item.type).serialize();
+    });
 };
 
-Entity.prototype.addItem = function(type) {
-    this.data.items.push(type);
+Entity.prototype.addItem = function(item) {
+    this.data.items.push(item);
     return this;
+};
+
+Entity.prototype.isManaAvailable = function(amount) {
+    return this.data.mp.current >= amount;
 };
 
 Entity.prototype.addHealth = function(amount) {
@@ -113,7 +122,7 @@ Entity.prototype.getData = function() {
 Entity.prototype.serialize = function() {
     var {type, hp, mp, items, skills, name} = this.data;
     return {
-        type, hp, mp, items, skills, name
+        type, hp, mp, name, items, skills
     };
 };
 

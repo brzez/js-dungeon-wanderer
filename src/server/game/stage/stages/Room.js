@@ -42,8 +42,6 @@ Room.prototype.init = function() {
     battleLog.add(this.getState().battleLog || []);
     roomGenerator.generate(this.getData());
     this.getState().stage.data = roomGenerator.generate();
-
-    console.log(this.getState().character.items)
 };
 
 /*

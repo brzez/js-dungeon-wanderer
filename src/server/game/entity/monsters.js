@@ -5,11 +5,19 @@ var monsters = {
     'Rat': (data) => {
         return new Entity(Object.assign({
             type: 'Rat',
-            hp: 2,
+            hp: 7,
             mp: 0,
             skills: [{type: 'Attack'}]
         }, data))
-    }
+    },
+    'Undead Priest': (data) => {
+        return new Entity(Object.assign({
+            type: 'Undead Priest',
+            hp: 11,
+            mp: 15,
+            skills: [{type: 'Heal'}]
+        }, data))
+    },
 }
 
 var names = [];

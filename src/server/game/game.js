@@ -63,7 +63,6 @@ Game.prototype.init = function(state) {
         w.addItem(itemRegistry.create('Mana Potion').serialize())
     }
     state.character = w.serialize();
-    console.log(state)
     return this.setStage('room');
     // 
 

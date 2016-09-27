@@ -47,7 +47,6 @@ RoomGenerator.prototype.generate = function() {
 
     if(this.config.monster_chance){
         let monsterName = pickRandom(monsterNames);
-        console.log(monsterName)
         let monster = entityRegistry.create(monsterName).serialize();
         room.monster = monster;
     }
