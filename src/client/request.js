@@ -15,9 +15,9 @@ var request = function(method, url, callback, options) {
     var responseType = options.responseType || 'json';
     xhr.onreadystatechange = function() {
         if(xhr.readyState !== XMLHttpRequest.DONE) return;
-        let response = xhr.response;
+        let response = xhr.responseText;
         if(responseType === 'json'){
-            response = JSON.parse(xhr.response);
+            response = JSON.parse(xhr.responseText);
         }
         callback(response, xhr);
     }
