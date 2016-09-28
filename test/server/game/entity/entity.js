@@ -19,7 +19,7 @@ describe('Entity', () => {
         })
         it('data.type always needs to be defined', function() {
             assert.throws(function() {
-                var e = new Entity({});
+                new Entity({});
             }, Error);
         })
         it('data.name should be data.type if not defined', function() {
