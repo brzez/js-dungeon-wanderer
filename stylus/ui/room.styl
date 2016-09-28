@@ -10,12 +10,21 @@
     width 100%
 
 .stats
+  $stats_border_width = 2px
   clearfix()
-  background random_color(.4)
+  border-radius 5px
+  border $stats_border_width solid #523b32
+  background #d0c7b2
+  box-shadow 0 0 3px #000 inset
   .group
+    padding 4px 8px
     width 50%
     float left
-    background random_color(.4)
+    &:nth-child(even)
+      border-left $stats_border_width solid #523b32
+    .name
+      font-weight bold
+      text-transform capitalize
 
 .inv
   width 20%
