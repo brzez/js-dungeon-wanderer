@@ -26,6 +26,6 @@ export var clientConfig = {
     babel(babelrc()), nodeResolve(), uglify({mangle: {toplevel: true}})
   ],
   external: external,
-  dest: 'public/client.js',
+  dest: 'public/c.js',
   cache: undefined,
 };

@@ -1,8 +1,8 @@
 todo.html
 node_modules/
 /server.js
-/public/client.js
-/public/index.css
+/public/c.js
+/public/i.css
 /public/*.png
-!/public/*.min.png
+!/public/s.png
 *.blend1

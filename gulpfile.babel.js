@@ -6,6 +6,7 @@ import {clientConfig, serverConfig} from './rollup.config.js'
 let rollup = require('rollup');
 let stylus = require('gulp-stylus');
 let cleanCSS = require('gulp-clean-css');
+let rename   = require('gulp-rename');
 
 const imagemin = require('gulp-imagemin');
 
@@ -23,6 +24,7 @@ gulp.task('stylus:build', function () {
   return gulp.src('./stylus/index.styl')
     .pipe(stylus())
     .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(rename('i.css'))
     .pipe(gulp.dest('./public/'));
 });
 
