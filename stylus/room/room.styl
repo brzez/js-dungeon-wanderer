@@ -4,19 +4,20 @@ $side_wall_width = 150px
 $side_wall_perspective_thing_height = 40px
 $wall_height = ($view_height - (2 * $side_wall_perspective_thing_height))
 
-$side_wall_color = #f00
+$side_wall_color = #ab956a
 
 $door_width = 80px
 $door_height = 200px
 
 .room
-  background random_color(.4)
   height 100%
   width 100%
   position absolute
   top 0
   clearfix()
   .spacer
+    width (100 / 3)%
+    float left
     height 100%
     position relative
   .door
@@ -96,13 +97,9 @@ $door_height = 200px
 
     &.front
       clearfix()
-      background random_color(.4)
+      background #e8d7b5
       width 100%
       @media(min-width $container_width)
         width $container_width - ($side_wall_width * 2)
-      .spacer
-        background random_color(.4)
-        width (100 / 3)%
-        float left
       
       
