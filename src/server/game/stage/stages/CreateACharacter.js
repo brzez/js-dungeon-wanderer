@@ -3,6 +3,8 @@ import Layers from '../../layers'
 import View from '../../view'
 
 import entityRegistry from '../../entity/registry'
+import itemRegistry from '../../entity/item/registry'
+import {pickRandom} from '../../randomUtil'
 
 
 var CreateACharacter = function(game) {
@@ -53,6 +55,13 @@ CreateACharacter.prototype.processInput = function(input) {
         // name + class set.
         // create a character and we are done here.
         var character = entityRegistry.create(data.type);
+
+        var items = Object.keys(itemRegistry.getAll());
+        //add some starting items
+        for(let i = 3; i-->0;){
+            let item = pickRandom(items);
+            character.addItem(itemRegistry.create(item).serialize())
+        }
         state.character = character.serialize()
         state.character.name = data.name;
         this.setStage('room');
