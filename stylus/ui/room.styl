@@ -2,36 +2,48 @@
   clearfix()
   padding 15px
 
-.ui
-  background rgba(0,0,0, .1)
-  button
-    width 100%
-    
 .wrapper
   width 70%
   float left
+  clearfix()
   @media(max-width $container_width)
     float none
     width 100%
 
 .stats
+  $stats_border_width = 2px
   clearfix()
-  background random_color(.4)
+  border-radius 5px
+  border $stats_border_width solid #523b32
+  background #d0c7b2
+  box-shadow 0 0 3px #000 inset
   .group
+    padding 4px 8px
     width 50%
     float left
-    background random_color(.4)
+    &:nth-child(even)
+      border-left $stats_border_width solid #523b32
+    .name
+      font-weight bold
+      text-transform capitalize
 
 .inv
+  clearfix()
   width 20%
-  float left  
+  float left 
+  padding 0 5px
   @media(max-width $sm_width)
     float none
     width 100%
-  button
-    display inline-block
+    padding 0
+  form
+    &:nth-child(odd)
+      padding-left 5px
+    padding 5px 0
     width (100%/2)
     float left
+    button
+      margin 0
     
 .actions
   width 80%
@@ -41,13 +53,15 @@
     width 100%
 
 .log
+  @media(min-width $container_width+1)
+    min-height 200px
   @media(max-width $container_width)
     float none
     width 100%
   width 30%
   float left
-  background random_color(.4)
-  min-height 100px
+  padding 5px
   li
     list-style none
+    border-bottom 1px dashed #666
 

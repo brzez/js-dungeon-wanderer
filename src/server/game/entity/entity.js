@@ -29,6 +29,7 @@ Entity.prototype.init = function(data) {
     this.data.hp   = normalizeStat(data.hp);
     this.data.mp   = normalizeStat(data.mp);
     this.data.is_undead = data.is_undead || false;
+    this.data.anim = data.anim || 'show';
 
     this.data.skills = (data.skills || [])
     .map(normalizeType)
@@ -152,6 +153,7 @@ Entity.prototype.getInventory = function() {
 };
 
 Entity.prototype.useSkill = function(type, target) {
+    this.data.anim = 'action';
     let skills = this.data.skills;
     for(let i = 0;i < skills.length; i++){
         if(skills[i].type != type){
@@ -174,9 +176,9 @@ Entity.prototype.getData = function() {
 };
 
 Entity.prototype.serialize = function() {
-    var {type, hp, mp, items, skills, name} = this.data;
+    var {type, hp, mp, items, skills, name, anim} = this.data;
     return {
-        type, hp, mp, name, items, skills,
+        type, hp, mp, name, items, skills, anim,
         cssClass: toCssClassName(this.data.name)
     };
 };

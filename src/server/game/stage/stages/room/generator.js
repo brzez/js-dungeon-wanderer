@@ -27,7 +27,7 @@ var RoomGenerator = function() {
 
 RoomGenerator.prototype.generate = function() {
     let room = {
-        type: pickRandom(roomTypes)
+        type: pickRandom(roomTypes).type
     };
 
     // always at least one door
