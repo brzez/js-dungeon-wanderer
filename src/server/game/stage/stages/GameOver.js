@@ -23,6 +23,9 @@ GameOver.prototype.getLayers = function() {
 };
 
 GameOver.prototype.processInput = function(input) {
+    // any input will restart the game.
+    // this.game.state = {};
+    this.game.setStage('create_a_character')
 };
 
 export default GameOver;
