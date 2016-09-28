@@ -1,5 +1,9 @@
-var Log = function() {
+var BattleLog = function(data) {
     var log = [];
+    this.set = function(data) {
+        log.length = 0;
+        this.add(data);
+    }
     this.add = function(data) {
         if(Array.isArray(data)){
             data.forEach((line)=>{
@@ -21,10 +25,9 @@ var Log = function() {
             log.shift()
         }
     }
+
+    this.set(data);
 }
 
 
-var battleLog = new Log();
-
-
-export default battleLog;
+export default BattleLog;

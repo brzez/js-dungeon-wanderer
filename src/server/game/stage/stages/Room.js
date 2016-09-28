@@ -5,7 +5,7 @@ import View from '../../view'
 import {DoorInputProcessor, ItemInputProcessor, FightInputProcessor} from '../../input/room.js'
 
 import entityRegistry from '../../entity/registry'
-import battleLog from '../../battleLog'
+import BattleLog from '../../BattleLog'
 import {instance as roomGenerator} from './room/generator'
 
 var Room = function(game) {
@@ -39,9 +39,15 @@ Room.prototype.__proto__ = Stage.prototype;
  */
 
 Room.prototype.init = function() {
-    battleLog.add(this.getState().battleLog || []);
     roomGenerator.generate(this.getData());
     this.getState().stage.data = roomGenerator.generate();
+};
+
+Room.prototype.log = function() {
+    if(this.battleLog){
+        return this.battleLog;
+    }
+    return this.battleLog = new BattleLog(this.getState().battleLog || []);
 };
 
 /*
@@ -52,14 +58,20 @@ Room.prototype.init = function() {
         - data.doors/default - controls for opening doors
  */
 Room.prototype.resolveInputProcessor = function() {
-    var data = this.getData();
-    if(data.monster){
-        return new FightInputProcessor(this);
+    let resolve = ()=>{
+        let data = this.getData();
+        if(data.monster){
+            return new FightInputProcessor(this);
+        }
+        if(data.item){
+            return new ItemInputProcessor(this);
+        }
+        return new DoorInputProcessor(this);
     }
-    if(data.item){
-        return new ItemInputProcessor(this);
-    }
-    return new DoorInputProcessor(this);
+
+    var resolved = resolve();
+    resolved.setLog(this.log())
+    return resolved;
 };
 
 Room.prototype.onFinish = function() {
@@ -67,15 +79,12 @@ Room.prototype.onFinish = function() {
 };
 
 Room.prototype.saveState = function() {
-    this.getState().battleLog = battleLog.serialize();
+    this.getState().battleLog = this.log().serialize();
     this.getState().character = this.getPlayer().serialize();
     this.getData().monster = null;
     if(this.getMonster()){
         let monster = this.getMonster();
         this.getData().monster = monster.serialize();
-    }
-    if(!this.getPlayer().isAlive()){
-        return this.setStage('game_over');
     }
 };
 
@@ -84,6 +93,7 @@ Room.prototype.getPlayer = function() {
         var data = this.getState().character;
         var {type} = data;
         this.playerInstance = entityRegistry.create(type, data);
+        this.playerInstance.setLog(this.log());
         return this.getPlayer();
     }   
     return this.playerInstance;
@@ -97,7 +107,9 @@ Room.prototype.getMonster = function() {
         }
         var data = data.monster;
         var {type} = data;
-        return this.monsterInstance = entityRegistry.create(type, data);
+        this.monsterInstance = entityRegistry.create(type, data);
+        this.monsterInstance.setLog(this.log());
+        return this.getMonster();
     }
     return this.monsterInstance;
 };
@@ -123,7 +135,7 @@ Room.prototype.updateFight = function() {
     }
     let monster = this.getMonster();
     if(!monster.isAlive()){
-        battleLog.add(`${monster.data.name} died`);
+        this.log().add(`${monster.data.name} died`);
         this.removeMonster();
         return;
     }
@@ -131,18 +143,19 @@ Room.prototype.updateFight = function() {
     monster.useRandomSkill(player);
 
     if(!player.isAlive()){
-        battleLog.add(`${player.data.name} died`);
+        this.log().add(`${player.data.name} died`);
+        this.setStage('game_over');
     }
 };
 
 Room.prototype.getLayers = function() {
-    battleLog.limit(5);
+    this.log().limit(5);
 
     let character  = this.getPlayer().serialize();
     let stage_data = this.getData();
     let controls   = this.resolveInputProcessor().getControls();
     let monster    = this.getMonster() ? this.getMonster().serialize() : null;
-    let log        = battleLog.serialize();
+    let log        = this.log().serialize();
 
     let inventory = this.getPlayer().getInventory();
 

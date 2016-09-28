@@ -57,13 +57,14 @@ Game.prototype.init = function(state) {
         return;
     }
     // mock player, skip create_a_character
-    let w = entityRegistry.create('Paladin');
-    for(let i = 3; i-->0;){
-        w.addItem(itemRegistry.create('Health Potion').serialize())
-        w.addItem(itemRegistry.create('Mana Potion').serialize())
-    }
-    state.character = w.serialize();
-    return this.setStage('room');
+    // let w = entityRegistry.create('Paladin');
+    // for(let i = 3; i-->0;){
+    //     w.addItem(itemRegistry.create('Health Potion').serialize())
+    //     w.addItem(itemRegistry.create('Mana Potion').serialize())
+    // }
+    // w.data.hp.current = 1;
+    // state.character = w.serialize();
+    // return this.setStage('room');
     // 
 
     // initial stage

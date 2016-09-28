@@ -1,62 +1,63 @@
-<div class="wrapper">
-    <div class="stats">
-        <div class="group">
-            <div class="name">{{character.name}}</div>
-            <div class="stat">Health: {{character.hp.current}} / {{character.hp.max}}</div>
-            <div class="stat">Mana: {{character.mp.current}} / {{character.mp.max}}</div>
+<div class="room_ui">
+    <div class="wrapper">
+        <div class="stats">
+            <div class="group">
+                <div class="name">{{character.name}}</div>
+                <div class="stat">Health: {{character.hp.current}} / {{character.hp.max}}</div>
+                <div class="stat">Mana: {{character.mp.current}} / {{character.mp.max}}</div>
+            </div>
+            {{#monster}}
+            <div class="group">
+                <div class="name">{{monster.name}}</div>
+                <div class="stat">Health: {{monster.hp.current}} / {{monster.hp.max}}</div>
+                <div class="stat">Mana: {{monster.mp.current}} / {{monster.mp.max}}</div>
+            </div>
+            {{/}}
         </div>
-        {{#monster}}
-        <div class="group">
-            <div class="name">{{monster.name}}</div>
-            <div class="stat">Health: {{monster.hp.current}} / {{monster.hp.max}}</div>
-            <div class="stat">Mana: {{monster.mp.current}} / {{monster.mp.max}}</div>
+        <div class="clearfix"></div>
+        <div class="actions">
+            <div class="sr">Actions</div>
+            {{#controls.monster}}
+                {{@character.skills}}
+                <form method="post">
+                    <button name="use_skill" value="{{type}}">{{name}}</button>
+                </form>
+                {{@}}
+            {{/}}
+            {{#controls.doors}}
+                {{@controls.doors}}
+                <form method="post">
+                    <button name="door" value="{{value}}">Open {{door.type}} door</button>
+                </form>
+                {{@}}
+            {{/}}
+            {{#controls.item}}
+                <form method="post">
+                    <button name="action" value="pick_up">Pick up {{controls.item.type}}</button>
+                </form>
+            {{/}}
         </div>
-        {{/}}
-    </div>
-    <div class="clearfix"></div>
-    <div class="actions">
-        <div class="sr">Actions</div>
-        {{#controls.monster}}
-            {{@character.skills}}
-            <form method="post">
-                <button name="use_skill" value="{{type}}">{{name}}</button>
-            </form>
-            {{@}}
-        {{/}}
-        {{#controls.doors}}
-            {{@controls.doors}}
-            <form method="post">
-                <button name="door" value="{{value}}">Open {{door.type}} door</button>
-            </form>
-            {{@}}
-        {{/}}
-        {{#controls.item}}
-            <form method="post">
-                <button name="action" value="pick_up">Pick up {{controls.item.type}}</button>
-            </form>
-        {{/}}
-    </div>
 
-    <div class="inv">
-        <div class="sr">Inventory: </div>
-        <form method="post">
-            {{@inventory}}
+        <div class="inv">
+            <div class="sr">Inventory: </div>
             <form method="post">
-                <button name="use_item" value="{{id}}">
-                    <span class="item {{cssClass}}"></span><span class="sr">{{name}}</span>
-                </button>
+                {{@inventory}}
+                <form method="post">
+                    <button name="use_item" value="{{id}}">
+                        <span class="item sprite {{cssClass}}"></span><span class="sr">{{name}}</span>
+                    </button>
+                </form>
+                {{@}}
             </form>
-            {{@}}
-        </form>
+        </div>
+        <div class="clearfix"></div>
     </div>
-    <div class="clearfix"></div>
+    <div class="log">
+        <h3>Battle Log</h3>
+        <ul>
+        {{@log}}
+            <li>{{text}}</li>
+        {{@}}
+        </ul>
+    </div>
 </div>
-<div class="log">
-    <h3>Battle Log</h3>
-    <ul>
-    {{@log}}
-        <li>{{text}}</li>
-    {{@}}
-    </ul>
-</div>
-<div class="clearfix"></div>

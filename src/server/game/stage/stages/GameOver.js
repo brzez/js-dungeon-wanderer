@@ -23,6 +23,15 @@ GameOver.prototype.getLayers = function() {
 };
 
 GameOver.prototype.processInput = function(input) {
+    // any input will restart the game.
+    // clear the game state
+    for(let k in this.game.state){
+        if(this.game.state.hasOwnProperty(k)){
+            delete this.game.state[k];
+            console.log(`deleting ${k}`)
+        }
+    }
+    this.game.setStage('create_a_character')
 };
 
 export default GameOver;

@@ -12,6 +12,7 @@ $door_height = 200px
 .room
   background random_color(.4)
   height 100%
+  width 100%
   position absolute
   top 0
   clearfix()
@@ -26,25 +27,26 @@ $door_height = 200px
     position absolute
     bottom 0
     left 50%
-    // transform translate(-50%) // IE is sad.
     margin-left - ($door_width / 2)
     width $door_width
     height $door_height
     background #f0f
-    // doors use sprite
-    background url("sprite.png")
     &.wooden
-      background-position-y 0
+      //
     &.golden
-      background-position-y (- $door_height)
+      //
     &.old
-      background-position-y (- $door_height * 2)
+      //
 
   .wall
     height $wall_height
     margin $side_wall_perspective_thing_height 0
     float left
     &.left, &.right
+      display none
+      @media(min-width $container_width)
+        display block
+      
       background $side_wall_color
       width $side_wall_width
       position relative
@@ -95,7 +97,9 @@ $door_height = 200px
     &.front
       clearfix()
       background random_color(.4)
-      width $container_width - ($side_wall_width * 2)
+      width 100%
+      @media(min-width $container_width)
+        width $container_width - ($side_wall_width * 2)
       .spacer
         background random_color(.4)
         width (100 / 3)%

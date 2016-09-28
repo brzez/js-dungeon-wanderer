@@ -1,0 +1,22 @@
+
+
+.sprite
+  background url("sprite.min.png")
+  &.health_potion, &.mana_potion
+    width 32px
+    height @width
+    display block
+    margin 0 auto
+  &.health_potion
+    background-position-x 0
+  &.mana_potion
+    background-position-x -32px
+  
+  width 64px
+  height 64px
+  &.undead_priest
+    background-position-y -( 32 )px
+  &.spooky_ghost
+    background-position-y -(32 + 64)px
+  &.slime
+    background-position-y -(32 + 64 * 2)px

@@ -1,17 +1,22 @@
 
-.overlay
-  background random_color(.3)
+.overlay_wrapper
   position absolute
-  top 0
-  bottom 0
-  left 0
-  right 0
-  .thing
+  display table
+  width 100%
+  height 100%
+  .overlay
+    display table-cell
+    vertical-align middle
+    text-align center
+  .overlay_inner
     background random_color(1)
-    width 64px
-    height @width
-    position absolute
-    bottom 0
-    left 50%
-    margin-left -(@width / 2)    
-    transform scale(2) // wont work in ie8
+    display inline-block
+    padding 5px
+    .sprite
+      background-color #aaa
+      display inline-block
+      border 1px solid black
+      vertical-align middle
+    strong
+      margin 5px
+      white-space nowrap
