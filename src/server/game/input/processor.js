@@ -1,6 +1,9 @@
 var InputProcessor = function(stage) {
     this.stage = stage;
 }
+InputProcessor.prototype.setLog = function(log) {
+    this.log = log;
+};
 InputProcessor.prototype.getStage = function() {
     return this.stage;
 };

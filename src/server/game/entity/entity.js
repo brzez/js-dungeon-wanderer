@@ -1,6 +1,5 @@
 import itemRegistry from './item/registry'
 import skillRegistry from './skill/registry'
-import battleLog from '../battleLog'
 import toCssClassName from './toCssClassName.js'
 
 
@@ -57,28 +56,32 @@ Entity.prototype.isManaAvailable = function(amount) {
     return this.data.mp.current >= amount;
 };
 
+Entity.prototype.setLog = function(log) {
+    this.log = log
+};
+
 Entity.prototype.addHealth = function(amount) {
     let hp = this.data.hp;
     hp.current = Math.min(hp.max, hp.current + amount);
-    battleLog.add(`${this.data.name} healed for ${amount}`)
+    this.log.add(`${this.data.name} healed for ${amount}`)
 };
 
 Entity.prototype.removeHealth = function(amount) {
     let hp = this.data.hp;
     hp.current = Math.max(0, hp.current - amount);
-    battleLog.add(`${this.data.name} got hit for ${amount}`)
+    this.log.add(`${this.data.name} got hit for ${amount}`)
 };
 
 Entity.prototype.addMana = function(amount) {
     let mp = this.data.mp;
     mp.current = Math.min(mp.max, mp.current + amount);
-    battleLog.add(`${this.data.name} restored ${amount} mana`)
+    this.log.add(`${this.data.name} restored ${amount} mana`)
 };
 
 Entity.prototype.removeMana = function(amount) {
     let mp = this.data.mp;
     mp.current = Math.max(0, mp.current - amount);
-    battleLog.add(`${this.data.name} used ${amount} mana`)
+    this.log.add(`${this.data.name} used ${amount} mana`)
 };
 
 Entity.prototype.isAlive = function() {
@@ -115,7 +118,7 @@ Entity.prototype.useItem = function(type) {
 
         let item = itemRegistry.create(type);
 
-        battleLog.add(`${this.data.name} used item ${item.name}`)
+        this.log.add(`${this.data.name} used item ${item.name}`)
 
         item.use(this);
         items.splice(i, 1);
@@ -157,7 +160,7 @@ Entity.prototype.useSkill = function(type, target) {
 
         let skill = skillRegistry.create(type);
 
-        battleLog.add(`${this.data.name} used skill ${skill.name}`)
+        this.log.add(`${this.data.name} used skill ${skill.name}`)
         skill.use(this, target);
 
 
