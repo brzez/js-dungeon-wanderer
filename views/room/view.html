@@ -22,12 +22,23 @@
     <div class="wall right"></div>
 </div>
 
-{{#monster}}
+{{# controls.monster}}
 <div class="overlay_wrapper">
     <div class="overlay">
         <div class="overlay_inner {{monster.anim}}">
             <div class="sprite {{monster.cssClass}}"></div>
             <span class="sr">A </span><strong>{{monster.name}}</strong><span class="sr"> is blocking your way</span>
+        </div>
+    </div>
+</div>
+{{/}}
+
+{{# controls.item}}
+<div class="overlay_wrapper">
+    <div class="overlay">
+        <div class="overlay_inner show">
+            <div class="sprite {{controls.item.cssClass}}"></div>
+            <span class="sr">You found a </span><strong>{{controls.item.type}}</strong><span class="sr"></span>
         </div>
     </div>
 </div>
