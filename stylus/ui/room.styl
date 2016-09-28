@@ -19,14 +19,17 @@
 
 .inv
   width 20%
-  float left  
+  float left 
+  padding 0 5px
   @media(max-width $sm_width)
     float none
     width 100%
-  button
-    display inline-block
+  form
+    padding 5px
     width (100%/2)
     float left
+    button
+      margin 0
     
 .actions
   width 80%
@@ -36,13 +39,15 @@
     width 100%
 
 .log
+  @media(min-width $container_width+1)
+    min-height 200px
   @media(max-width $container_width)
     float none
     width 100%
   width 30%
   float left
   padding 5px
-  min-height 100px
   li
     list-style none
+    border-bottom 1px dashed #666
 
