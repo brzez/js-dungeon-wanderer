@@ -74,9 +74,6 @@ Room.prototype.saveState = function() {
         let monster = this.getMonster();
         this.getData().monster = monster.serialize();
     }
-    if(!this.getPlayer().isAlive()){
-        return this.setStage('game_over');
-    }
 };
 
 Room.prototype.getPlayer = function() {
@@ -132,6 +129,7 @@ Room.prototype.updateFight = function() {
 
     if(!player.isAlive()){
         battleLog.add(`${player.data.name} died`);
+        this.setStage('game_over');
     }
 };
 
