@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 })); 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public', {maxAge: 60 * 60 * 24 * 1000}))
 
 app.set('view engine', 'html');
 app.engine('html', viewEngine);

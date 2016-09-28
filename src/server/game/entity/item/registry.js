@@ -1,10 +1,7 @@
 import Factory from '../factory.js'
+import toCssClassName from '../toCssClassName.js'
 
 var itemRegistry = new Factory();
-
-var toCssClassName = function(name) {
-    return name.toLowerCase().replace(/\s/g, '_');
-}
 
 var HealthPotion = function() {
     this.type = this.name = 'Health Potion'

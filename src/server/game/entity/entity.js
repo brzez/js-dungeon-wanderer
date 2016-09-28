@@ -1,6 +1,7 @@
 import itemRegistry from './item/registry'
 import skillRegistry from './skill/registry'
 import battleLog from '../battleLog'
+import toCssClassName from './toCssClassName.js'
 
 
 var Entity = function(data) {
@@ -172,7 +173,8 @@ Entity.prototype.getData = function() {
 Entity.prototype.serialize = function() {
     var {type, hp, mp, items, skills, name} = this.data;
     return {
-        type, hp, mp, name, items, skills
+        type, hp, mp, name, items, skills,
+        cssClass: toCssClassName(this.data.name)
     };
 };
 
