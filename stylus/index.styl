@@ -17,12 +17,17 @@
   clip rect(0,0,0,0)
   border 0
 
+$game_border_width = 5px
 
 .game
   margin 0 auto
-  border 5px solid #523b32
+  border $game_border_width solid #523b32
   border-radius 5px
-  width $container_width
+  $game_width_with_borders = ($container_width + 2 * $game_border_width )
+  width $game_width_with_borders
+  @media(max-width $game_width_with_borders)
+    border 0
+    width $container_width
   @media(max-width: $container_width)
     width 100%
     
