@@ -33,7 +33,7 @@ $game_border_width = 5px
     
   &__view
     height $view_height
-    background #292929
+    background #333
     overflow hidden
     position relative
     
@@ -44,6 +44,10 @@ body
   color #804000
   padding-top 2em
   background #e6e1d7
+  @media(max-width $container_width)
+    padding 0
+    background #f4e6c3
+    
 
 h1, h3
   text-shadow 0px 1px 1px #6f6861
