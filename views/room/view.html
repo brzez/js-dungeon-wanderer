@@ -1,32 +1,30 @@
 
 <div class="sr">
-    You are in *room type* room. <br>
-    You see a *door type* door<br>
-    You see a *door type* door<br>
-    You see a *door type* door<br>
+    You are in a <strong>{{stage_data.type}}</strong> room.
 </div>
-
 <div class="room">
     <div class="wall left"></div>
     <div class="wall front">
-        <div class="spacer">
-            <div class="door wooden"></div>
-        </div>
-        <div class="spacer">
-            <div class="door golden"></div>
-        </div>
-        <div class="spacer">
-            <div class="door old"></div>
-        </div>
+        {{@ stage_data.doors}}
+            <div class="spacer">
+                {{# type}}
+                <div class="door">
+                    <span class="sr">You see a {{type}} door.</span>
+                </div>
+                {{/}}
+            </div>
+        {{@}}
     </div>
     <div class="wall right"></div>
 </div>
 
+{{#monster}}
 <div class="overlay_wrapper">
     <div class="overlay">
         <div class="overlay_inner">
-            <div class="sprite spooky_ghost"></div>
-            <span class="sr">A </span><strong>Spooky Ghost</strong><span class="sr"> is blocking your way</span>
+            <div class="sprite {{monster.cssClass}}"></div>
+            <span class="sr">A </span><strong>{{monster.name}}</strong><span class="sr"> is blocking your way</span>
         </div>
     </div>
 </div>
+{{/}}

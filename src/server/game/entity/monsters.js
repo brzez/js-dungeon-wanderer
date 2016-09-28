@@ -2,14 +2,14 @@ import Entity from './entity'
 
 
 var monsters = {
-    'Rat': (data) => {
-        return new Entity(Object.assign({
-            type: 'Rat',
-            hp: 7,
-            mp: 0,
-            skills: ['Attack']
-        }, data))
-    },
+    // 'Rat': (data) => {
+    //     return new Entity(Object.assign({
+    //         type: 'Rat',
+    //         hp: 7,
+    //         mp: 0,
+    //         skills: ['Attack']
+    //     }, data))
+    // },
     'Undead Priest': (data) => {
         return new Entity(Object.assign({
             type: 'Undead Priest',
@@ -36,14 +36,14 @@ var monsters = {
             skills: ['Attack', 'Thunderbolt']
         }, data))
     },
-    'Bat': (data) => {
-        return new Entity(Object.assign({
-            type: 'Bat',
-            hp: 10,
-            mp: 0,
-            skills: ['Attack']
-        }, data))
-    },
+    // 'Bat': (data) => {
+    //     return new Entity(Object.assign({
+    //         type: 'Bat',
+    //         hp: 10,
+    //         mp: 0,
+    //         skills: ['Attack']
+    //     }, data))
+    // },
 }
 
 var names = [];
