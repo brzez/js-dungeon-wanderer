@@ -1,5 +1,9 @@
 var Log = function() {
     var log = [];
+    this.set = function(data) {
+        log.length = 0;
+        this.add(data);
+    }
     this.add = function(data) {
         if(Array.isArray(data)){
             data.forEach((line)=>{

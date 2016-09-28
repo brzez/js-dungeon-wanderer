@@ -39,7 +39,7 @@ Room.prototype.__proto__ = Stage.prototype;
  */
 
 Room.prototype.init = function() {
-    battleLog.add(this.getState().battleLog || []);
+    battleLog.set(this.getState().battleLog || []);
     roomGenerator.generate(this.getData());
     this.getState().stage.data = roomGenerator.generate();
 };
