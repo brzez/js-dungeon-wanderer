@@ -20,8 +20,8 @@ var doorTypes = [
 var RoomGenerator = function() {
     this.config = {
         door_chance: '25%',
-        item_chance: '16%',
-        monster_chance: '40%'
+        item_chance: '30%',
+        monster_chance: '45%'
     }
 }
 
@@ -40,12 +40,12 @@ RoomGenerator.prototype.generate = function() {
 
     room.doors = arrayShuffle(doors);
 
-    if(this.config.item_chance){
+    if(chance(this.config.item_chance)){
         let item = itemRegistry.create(pickRandomKey(itemRegistry.getAll())).serialize();
         room.item = item;
     }
 
-    if(this.config.monster_chance){
+    if(chance(this.config.monster_chance)){
         let monsterName = pickRandom(monsterNames);
         let monster = entityRegistry.create(monsterName).serialize();
         room.monster = monster;
