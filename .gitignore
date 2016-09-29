@@ -6,3 +6,4 @@ node_modules/
 /public/*.png
 !/public/s.png
 *.blend1
+readme.html
