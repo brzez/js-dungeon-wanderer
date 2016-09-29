@@ -177,7 +177,6 @@ Room.prototype.processInput = function(input) {
 
     if(input.use_item){
         var itemId = input.use_item;
-        console.log('use item: ', input)
         this.getPlayer().useItemById(itemId);
         return this.updateFight();
     }

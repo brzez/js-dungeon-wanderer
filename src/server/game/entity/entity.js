@@ -110,9 +110,7 @@ Entity.prototype.useItemById = function(id) {
 
 Entity.prototype.useItem = function(type) {
     let items = this.data.items;
-    console.log('using item', type);
     for(let i = 0;i < items.length; i++){
-        console.log(items[i], type);
         if(items[i].type != type){
             continue;
         }

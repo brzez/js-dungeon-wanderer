@@ -17,7 +17,6 @@ var toArray = function(o) {
 var bind = function(){
     toArray(document.querySelectorAll('form')).forEach(function(form) {
         form.onsubmit = function(e) {
-            console.log('form#onsubmit')
             e.preventDefault();
             request('post', '/', function(gameState) {
                 renderLayers(gameState, function() {

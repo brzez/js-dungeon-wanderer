@@ -28,7 +28,6 @@ GameOver.prototype.processInput = function(input) {
     for(let k in this.game.state){
         if(this.game.state.hasOwnProperty(k)){
             delete this.game.state[k];
-            console.log(`deleting ${k}`)
         }
     }
     this.game.setStage('create_a_character')
