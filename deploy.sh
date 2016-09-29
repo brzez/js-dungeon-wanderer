@@ -114,8 +114,8 @@ if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd "$DEPLOYMENT_TARGET"
   eval $NPM_CMD install # --production
   # 4. Run npm build
-  eval npm run build
   exitWithMessageOnError "npm failed"
+  eval npm run build
   cd - > /dev/null
 fi
 

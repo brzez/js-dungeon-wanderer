@@ -11,10 +11,11 @@ let external = Object.keys(pkg.dependencies);
 
 export var serverConfig = {
   entry: 'src/server.js',
+  external: ['fs'],
   plugins: [
     babel(babelrc()), nodeResolve()
   ],
-  external: external,
+  // external: external,
   dest: 'server.js',
   cache: undefined,
   format: 'cjs'
