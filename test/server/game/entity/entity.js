@@ -3,6 +3,8 @@ import {assert, expect} from 'chai';
 import Entity from '../../../../src/server/game/entity/entity.js'
 
 describe('Entity', () => {
+    let logMock = {add: ()=>{}};
+
     describe('constructor', function() {
         it('should normalize hp / mp data structure', function() {
             var e = new Entity({type: 'test', hp: 10, mp: 15});
@@ -42,6 +44,8 @@ describe('Entity', () => {
             var e = new Entity({type: 'test', name: 'foo', hp: 10, mp: 15});
             var serialized = e.serialize();
             assert.deepEqual(serialized, {
+                anim: 'show',
+                cssClass: 'foo',
                 name: 'foo',
                 type: 'test',
                 hp: {current: 10, max: 10},
@@ -54,6 +58,7 @@ describe('Entity', () => {
     describe('#addHealth', function() {
         it('should max out on maximum hp', function() {
             var e = new Entity({type: 'test', name: 'foo', hp: {current: 20, max: 30}, mp: 15});
+            e.setLog(logMock);
             assert.equal(e.data.hp.current, 20);
             e.addHealth(300);
             assert.equal(e.data.hp.current, 30);
@@ -62,6 +67,7 @@ describe('Entity', () => {
     describe('#removeHealth', function() {
         it('should prevent from going lower than 0', function() {
             var e = new Entity({type: 'test', name: 'foo', hp: {current: 20, max: 30}, mp: 15});
+            e.setLog(logMock);
             assert.equal(e.data.hp.current, 20);
             e.removeHealth(300);
             assert.equal(e.data.hp.current, 0);
@@ -70,6 +76,7 @@ describe('Entity', () => {
     describe('#addMana', function() {
         it('should max out on maximum hp', function() {
             var e = new Entity({type: 'test', name: 'foo', hp: 10, mp: {current: 20, max: 30}});
+            e.setLog(logMock);
             assert.equal(e.data.mp.current, 20);
             e.addMana(300);
             assert.equal(e.data.mp.current, 30);
@@ -78,6 +85,7 @@ describe('Entity', () => {
     describe('#removeMana', function() {
         it('should prevent from going lower than 0', function() {
             var e = new Entity({type: 'test', name: 'foo', hp: 10, mp: {current: 20, max: 30}});
+            e.setLog(logMock);
             assert.equal(e.data.mp.current, 20);
             e.removeMana(300);
             assert.equal(e.data.mp.current, 0);
@@ -86,6 +94,7 @@ describe('Entity', () => {
     describe('#isAlive', function() {
         it('should check if hp neq 0', function() {
             var e = new Entity({type: 'test', name: 'foo', hp: {current: 22, max: 30}, mp: 15});
+            e.setLog(logMock);
             assert.equal(e.data.hp.current, 22);
             assert.equal(e.isAlive(), true);
             e.removeHealth(2000);
@@ -95,6 +104,7 @@ describe('Entity', () => {
     describe('#isManaAvailable', function() {
         it('should check if mana >= amount', function() {
             var e = new Entity({type: 'test', name: 'foo', hp: {current: 22, max: 30}, mp: 15});
+            e.setLog(logMock);
             assert.equal(e.isManaAvailable(10), true);
             e.removeMana(10);
             assert.equal(e.isManaAvailable(10), false);
@@ -106,6 +116,7 @@ describe('Entity', () => {
                 type: 'test', name: 'foo', hp: 10, mp: 15,
                 items: ['Mana Potion', 'Health Potion']
             });
+            e.setLog(logMock);
 
             assert.isTrue(e.useItemById(1));
             expect(e.data.items).to.not.include({type: 'Mana Potion'})
