@@ -9,13 +9,50 @@ $side_wall_color = #ab956a
 $door_width = 80px
 $door_height = 200px
 
-.floor, .ceiling
-  height 50%
-  width 100%
-.floor
-  background #695a3e
-.ceiling
-  background #775931
+it_has_side_walls(bg)
+  .wall.left:before
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    bottom 100%
+    
+    border-bottom $side_wall_perspective_thing_height solid bg
+    border-right $side_wall_width solid transparent
+    
+  .wall.left:after
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    top 100%
+    
+    border-top $side_wall_perspective_thing_height solid bg
+    border-right $side_wall_width solid transparent
+    
+  .wall.right:before
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    bottom 100%
+    
+    border-bottom $side_wall_perspective_thing_height solid bg
+    border-left $side_wall_width solid transparent
+    
+  .wall.right:after
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    top 100%
+    
+    border-top $side_wall_perspective_thing_height solid bg
+    border-left $side_wall_width solid transparent
   
 
 .room
@@ -24,6 +61,41 @@ $door_height = 200px
   position absolute
   top 0
   clearfix()
+  
+  &.festive
+    .floor
+      background #666
+    .ceiling
+      background #f00
+    .wall.front
+      background #ee0
+    it_has_side_walls(#f0f)
+  
+  &.ugly
+    .floor
+      background #333
+    .ceiling
+      background #0f0
+    .wall.front
+      background #c0d333
+    it_has_side_walls(#333)
+  
+  &.dark
+    .floor
+      background #666
+    .ceiling
+      background #f00
+    .wall.front
+      background #e0e033
+    it_has_side_walls(#f0f)
+    
+  .floor, .ceiling
+    height 50%
+    width 100%
+  .floor
+    background #695a3e
+  .ceiling
+    background #775931
   .spacer
     width (100 / 3)%
     float left
@@ -68,49 +140,6 @@ $door_height = 200px
       background $side_wall_color
       width $side_wall_width
       position relative
-    &.left:before
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      bottom 100%
-      
-      border-bottom $side_wall_perspective_thing_height solid $side_wall_color
-      border-right $side_wall_width solid transparent
-      
-    &.left:after
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      top 100%
-      
-      border-top $side_wall_perspective_thing_height solid $side_wall_color
-      border-right $side_wall_width solid transparent
-      
-    &.right:before
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      bottom 100%
-      
-      border-bottom $side_wall_perspective_thing_height solid $side_wall_color
-      border-left $side_wall_width solid transparent
-      
-    &.right:after
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      top 100%
-      
-      border-top $side_wall_perspective_thing_height solid $side_wall_color
-      border-left $side_wall_width solid transparent
 
     &.front
       clearfix()
