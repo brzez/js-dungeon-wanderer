@@ -4,18 +4,55 @@ $side_wall_width = 150px
 $side_wall_perspective_thing_height = 40px
 $wall_height = ($view_height - (2 * $side_wall_perspective_thing_height))
 
-$side_wall_color = #ab956a
-
 $door_width = 80px
 $door_height = 200px
 
-.floor, .ceiling
-  height 50%
-  width 100%
-.floor
-  background #695a3e
-.ceiling
-  background #775931
+it_has_side_walls(bg)
+  .wall.left, .wall.right
+    background bg
+  .wall.left:before
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    bottom 100%
+    
+    border-bottom $side_wall_perspective_thing_height solid bg
+    border-right $side_wall_width solid transparent
+    
+  .wall.left:after
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    top 100%
+    
+    border-top $side_wall_perspective_thing_height solid bg
+    border-right $side_wall_width solid transparent
+    
+  .wall.right:before
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    bottom 100%
+    
+    border-bottom $side_wall_perspective_thing_height solid bg
+    border-left $side_wall_width solid transparent
+    
+  .wall.right:after
+    content ''
+    display block
+    width 1px
+    height 1px
+    position absolute
+    top 100%
+    
+    border-top $side_wall_perspective_thing_height solid bg
+    border-left $side_wall_width solid transparent
   
 
 .room
@@ -24,6 +61,37 @@ $door_height = 200px
   position absolute
   top 0
   clearfix()
+  
+  &.festive
+    .floor
+      background #c08f67
+    .ceiling
+      background #eee
+    .wall.front
+      background #ded1cb
+    it_has_side_walls(#bbafaa)
+  
+  &.ugly
+    .floor
+      background #666
+    .ceiling
+      background #aaa
+    .wall.front
+      background #777
+    it_has_side_walls(#555)
+  
+  &.dark
+    .floor
+      background #695a3e
+    .ceiling
+      background #775931
+    .wall.front
+      background #e8d7b5
+    it_has_side_walls(#ab956a)
+    
+  .floor, .ceiling
+    height 50%
+    width 100%
   .spacer
     width (100 / 3)%
     float left
@@ -64,53 +132,8 @@ $door_height = 200px
       display none
       @media(min-width $container_width)
         display block
-      
-      background $side_wall_color
       width $side_wall_width
       position relative
-    &.left:before
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      bottom 100%
-      
-      border-bottom $side_wall_perspective_thing_height solid $side_wall_color
-      border-right $side_wall_width solid transparent
-      
-    &.left:after
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      top 100%
-      
-      border-top $side_wall_perspective_thing_height solid $side_wall_color
-      border-right $side_wall_width solid transparent
-      
-    &.right:before
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      bottom 100%
-      
-      border-bottom $side_wall_perspective_thing_height solid $side_wall_color
-      border-left $side_wall_width solid transparent
-      
-    &.right:after
-      content ''
-      display block
-      width 1px
-      height 1px
-      position absolute
-      top 100%
-      
-      border-top $side_wall_perspective_thing_height solid $side_wall_color
-      border-left $side_wall_width solid transparent
 
     &.front
       clearfix()

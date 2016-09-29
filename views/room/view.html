@@ -3,23 +3,25 @@
     You are in a <strong>{{stage_data.type}}</strong> room.
 </div>
 
-<div class="ceiling"></div>
-<div class="floor"></div>
 
-<div class="room">
-    <div class="wall left"></div>
-    <div class="wall front">
-        {{@ stage_data.doors}}
-            <div class="spacer">
-                {{# type}}
-                <div class="door {{type}}">
-                    <span class="sr">You see a {{type}} door.</span>
+<div class="room {{stage_data.type}}">
+    <div class="ceiling"></div>
+    <div class="floor"></div>
+    <div class="room inner">
+        <div class="wall left"></div>
+        <div class="wall front">
+            {{@ stage_data.doors}}
+                <div class="spacer">
+                    {{# type}}
+                    <div class="door {{type}}">
+                        <span class="sr">You see a <strong>{{type}}</strong> door.</span>
+                    </div>
+                    {{/}}
                 </div>
-                {{/}}
-            </div>
-        {{@}}
+            {{@}}
+        </div>
+        <div class="wall right"></div>
     </div>
-    <div class="wall right"></div>
 </div>
 
 {{# controls.monster}}
