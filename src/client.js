@@ -8,8 +8,18 @@ String.prototype.includes = function(v) {
 }
 
 var toArray = function(o) {
-    return [].slice.call(o)
+    var a = [];
+    a.push.apply(a, o);
+    return a;
 }
+
+// if(![].forEach){
+//     // Array.prototype.forEach = function(cb){
+//     //     for(let i=0;i<this.length;i++){
+//     //         cb(this[i], i);
+//     //     };
+//     // }
+// }
 
 /**
  * Forwards form actions as xhr post
@@ -26,4 +36,8 @@ var bind = function(){
         }
     })
 }
-bind();
+
+// this seems like the easiest way to check for IE<9
+if([].forEach){
+    bind();
+}
