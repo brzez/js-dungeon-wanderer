@@ -1,6 +1,7 @@
 todo.html
 node_modules/
 /server.js
+/views-min/
 /public/c.js
 /public/i.css
 /public/*.png
