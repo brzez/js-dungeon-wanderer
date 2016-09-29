@@ -4,30 +4,30 @@
 </div>
 
 
-<div class="room {{stage_data.type}}">
-    <div class="ceiling"></div>
-    <div class="floor"></div>
-    <div class="room inner">
-        <div class="wall left"></div>
-        <div class="wall front">
+<div class="r {{stage_data.type}}">
+    <div class="c"></div>
+    <div class="f"></div>
+    <div class="r i">
+        <div class="w l"></div>
+        <div class="w f">
             {{@ stage_data.doors}}
-                <div class="spacer">
+                <div class="s">
                     {{# type}}
-                    <div class="door {{type}}">
+                    <div class="d {{type}}">
                         <span class="sr">You see a <strong>{{type}}</strong> door.</span>
                     </div>
                     {{/}}
                 </div>
             {{@}}
         </div>
-        <div class="wall right"></div>
+        <div class="w r"></div>
     </div>
 </div>
 
 {{# controls.monster}}
-<div class="overlay_wrapper">
-    <div class="overlay">
-        <div class="overlay_inner {{monster.anim}}">
+<div class="o_w">
+    <div class="o">
+        <div class="o_i {{monster.anim}}">
             <div class="sprite {{monster.cssClass}}"></div>
             <span class="sr">A </span><strong>{{monster.name}}</strong><span class="sr"> is blocking your way</span>
         </div>
@@ -36,9 +36,9 @@
 {{/}}
 
 {{# controls.item}}
-<div class="overlay_wrapper">
-    <div class="overlay">
-        <div class="overlay_inner show">
+<div class="o_w">
+    <div class="o">
+        <div class="o_i show">
             <div class="sprite {{controls.item.cssClass}}"></div>
             <span class="sr">You found a </span><strong>{{controls.item.type}}</strong><span class="sr"></span>
         </div>
