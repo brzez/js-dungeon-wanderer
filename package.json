@@ -36,6 +36,6 @@
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0",
-    "view-engine": "file:../view-engine"
+    "view-engine": "git+https://github.com/brzez/js-view-engine.git"
   }
 }
