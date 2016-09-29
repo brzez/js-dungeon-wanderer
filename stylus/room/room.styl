@@ -4,12 +4,12 @@ $side_wall_width = 150px
 $side_wall_perspective_thing_height = 40px
 $wall_height = ($view_height - (2 * $side_wall_perspective_thing_height))
 
-$side_wall_color = #ab956a
-
 $door_width = 80px
 $door_height = 200px
 
 it_has_side_walls(bg)
+  .wall.left, .wall.right
+    background bg
   .wall.left:before
     content ''
     display block
@@ -64,38 +64,34 @@ it_has_side_walls(bg)
   
   &.festive
     .floor
-      background #666
+      background #c08f67
     .ceiling
-      background #f00
+      background #eee
     .wall.front
-      background #ee0
-    it_has_side_walls(#f0f)
+      background #ded1cb
+    it_has_side_walls(#bbafaa)
   
   &.ugly
     .floor
-      background #333
+      background #666
     .ceiling
-      background #0f0
+      background #aaa
     .wall.front
-      background #c0d333
-    it_has_side_walls(#333)
+      background #777
+    it_has_side_walls(#555)
   
   &.dark
     .floor
-      background #666
+      background #695a3e
     .ceiling
-      background #f00
+      background #775931
     .wall.front
-      background #e0e033
-    it_has_side_walls(#f0f)
+      background #e8d7b5
+    it_has_side_walls(#ab956a)
     
   .floor, .ceiling
     height 50%
     width 100%
-  .floor
-    background #695a3e
-  .ceiling
-    background #775931
   .spacer
     width (100 / 3)%
     float left
@@ -136,8 +132,6 @@ it_has_side_walls(bg)
       display none
       @media(min-width $container_width)
         display block
-      
-      background $side_wall_color
       width $side_wall_width
       position relative
 
