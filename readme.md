@@ -18,3 +18,12 @@ Uses [js-view-engine](https://github.com/brzez/js-view-engine) for the template 
  - ffx
  - ie 11 10 9
  - ie8 (no xhr mode)
+
+### Build
+
+```npm install```
+```npm run build```
+
+### Run
+
+```node server.js```
