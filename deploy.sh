@@ -113,12 +113,12 @@ selectNodeVersion
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd "$DEPLOYMENT_TARGET"
   eval $NPM_CMD install # --production
+  # 4. Run npm build
+  eval npm run build
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi
 
-# 4. Run npm build
-eval npm run build
 
 ##################################################################################################################################
 echo "Finished successfully."
