@@ -30,5 +30,6 @@ app.engine('html', viewEngine);
 
 app.use(game());
 
+var port = process.env.PORT || 3000;
 
-app.listen(3000);
+app.listen(port);
