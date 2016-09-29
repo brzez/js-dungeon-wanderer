@@ -19,7 +19,8 @@
 
 $game_border_width = 5px
 
-.game
+// .game
+.g
   margin 0 auto
   border $game_border_width solid #523b32
   border-radius 5px
@@ -31,7 +32,8 @@ $game_border_width = 5px
   @media(max-width: $container_width)
     width 100%
     
-  &__view
+  // &__view
+  &_v
     height $view_height
     background #333
     overflow hidden
@@ -55,15 +57,18 @@ h1, h3
 button
   cursor pointer
 
-.stats_info
+// .stats_info
+.s_i
   display inline-block
   border none
   text-align left
-  & .name
+  // & .name
+  & .n
     text-align center
     font-size 1.2em
     padding 5px
     font-weight bold
-  & .col
+  // & .col
+  & .c
     display inline-block
     width 50%

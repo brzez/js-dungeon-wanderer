@@ -1,20 +1,20 @@
-<div class="room_ui">
-    <div class="wrapper">
-        <div class="stats">
-            <div class="group">
+<div class="rui">
+    <div class="ruiw">
+        <div class="st">
+            <div class="gr">
                 <div class="name">{{character.name}}</div>
-                <div class="stat">Health: {{character.hp.current}} / {{character.hp.max}}</div>
-                <div class="stat">Mana: {{character.mp.current}} / {{character.mp.max}}</div>
+                <div>Health: {{character.hp.current}} / {{character.hp.max}}</div>
+                <div>Mana: {{character.mp.current}} / {{character.mp.max}}</div>
             </div>
             {{#monster}}
-            <div class="group">
+            <div class="gr">
                 <div class="name">{{monster.name}}</div>
-                <div class="stat">Health: {{monster.hp.current}} / {{monster.hp.max}}</div>
-                <div class="stat">Mana: {{monster.mp.current}} / {{monster.mp.max}}</div>
+                <div>Health: {{monster.hp.current}} / {{monster.hp.max}}</div>
+                <div>Mana: {{monster.mp.current}} / {{monster.mp.max}}</div>
             </div>
             {{/}}
         </div>
-        <div class="actions">
+        <div class="rac">
             <div class="sr">Actions</div>
             {{#controls.monster}}
                 {{@character.skills}}

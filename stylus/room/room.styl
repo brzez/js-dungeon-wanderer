@@ -8,9 +8,11 @@ $door_width = 80px
 $door_height = 200px
 
 it_has_side_walls(bg)
-  .wall.left, .wall.right
+  // .wall.left, .wall.right
+  .w.l, .w.r
     background bg
-  .wall.left:before
+  // .wall.left:before
+  .w.l:before
     content ''
     display block
     width 1px
@@ -21,7 +23,8 @@ it_has_side_walls(bg)
     border-bottom $side_wall_perspective_thing_height solid bg
     border-right $side_wall_width solid transparent
     
-  .wall.left:after
+  // .wall.left:after
+  .w.l:after
     content ''
     display block
     width 1px
@@ -32,7 +35,8 @@ it_has_side_walls(bg)
     border-top $side_wall_perspective_thing_height solid bg
     border-right $side_wall_width solid transparent
     
-  .wall.right:before
+  // .wall.right:before
+  .w.r:before
     content ''
     display block
     width 1px
@@ -43,7 +47,8 @@ it_has_side_walls(bg)
     border-bottom $side_wall_perspective_thing_height solid bg
     border-left $side_wall_width solid transparent
     
-  .wall.right:after
+  // .wall.right:after
+  .w.r:after
     content ''
     display block
     width 1px
@@ -55,7 +60,8 @@ it_has_side_walls(bg)
     border-left $side_wall_width solid transparent
   
 
-.room
+// .room
+.r
   height 100%
   width 100%
   position absolute
@@ -63,41 +69,53 @@ it_has_side_walls(bg)
   clearfix()
   
   &.festive
-    .floor
+    // .floor
+    .f
       background #c08f67
-    .ceiling
+    // .ceiling
+    .c
       background #eee
-    .wall.front
+    // .wall.front
+    .w.f
       background #ded1cb
     it_has_side_walls(#bbafaa)
   
   &.ugly
-    .floor
+    // .floor
+    .f
       background #666
-    .ceiling
+    // .ceiling
+    .c
       background #aaa
-    .wall.front
+    // .wall.front
+    .w.f
       background #777
     it_has_side_walls(#555)
   
   &.dark
-    .floor
+    // .floor
+    .f
       background #695a3e
-    .ceiling
+    // .ceiling
+    .c
       background #775931
-    .wall.front
+    // .wall.front
+    .w.f
       background #e8d7b5
     it_has_side_walls(#ab956a)
     
-  .floor, .ceiling
+  // .floor, .ceiling
+  .f, .c
     height 50%
     width 100%
-  .spacer
+  // .spacer
+  .s
     width (100 / 3)%
     float left
     height 100%
     position relative
-  .door
+  // .door
+  .d
     /*
       doors should be centered on x axis
       but aligned to bottom on y axis
@@ -124,18 +142,21 @@ it_has_side_walls(bg)
       box-shadow 0 4px 7px 0 #153309 inset
 
 
-  .wall
+  // .wall
+  .w
     height $wall_height
     margin $side_wall_perspective_thing_height 0
     float left
-    &.left, &.right
+    // &.left, &.right
+    &.l, &.r
       display none
       @media(min-width $container_width)
         display block
       width $side_wall_width
       position relative
 
-    &.front
+    // &.front
+    &.f
       clearfix()
       background #e8d7b5
       width 100%

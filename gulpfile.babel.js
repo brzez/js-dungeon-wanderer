@@ -7,6 +7,7 @@ let rollup = require('rollup');
 let stylus = require('gulp-stylus');
 let cleanCSS = require('gulp-clean-css');
 let rename   = require('gulp-rename');
+let htmlmin = require('gulp-htmlmin');
 
 const imagemin = require('gulp-imagemin');
 
@@ -30,6 +31,16 @@ gulp.task('stylus:build', function () {
 
 gulp.task('stylus:watch', function() {
     gulp.watch('./stylus/**/*', ['stylus:build']);
+});
+
+gulp.task('htmlmin', function() {
+  return gulp.src('./views/**/*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('views-min'));
+});
+
+gulp.task('htmlmin:watch', function() {
+    gulp.watch('./views/**/*', ['htmlmin']);
 })
 
 gulp.task('js:build', function(done) {
@@ -58,8 +69,8 @@ gulp.task('imagemin', () =>
         .pipe(gulp.dest('public'))
 );
 
-gulp.task('dev', ['build', 'stylus:watch', 'imagemin:watch', 'js:watch', 'nodemon'])
+gulp.task('dev', ['build', 'htmlmin:watch', 'stylus:watch', 'imagemin:watch', 'js:watch', 'nodemon'])
 
-gulp.task('build', ['stylus:build', 'js:build', 'imagemin']);
+gulp.task('build', ['stylus:build', 'js:build', 'imagemin', 'htmlmin']);
 
 gulp.task('default', ['js:build', 'js:watch'])

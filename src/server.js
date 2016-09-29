@@ -21,6 +21,9 @@ app.use(bodyParser.urlencoded({
 })); 
 app.use(express.static(__dirname + '/public', {maxAge: 60 * 60 * 24 * 1000}))
 
+// dir w/ minified html
+app.set('views', 'views-min');
+
 app.set('view engine', 'html');
 app.engine('html', viewEngine);
 
